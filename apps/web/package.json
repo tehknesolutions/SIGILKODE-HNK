@@ -14,7 +14,9 @@
     "@sigilkode/renderer": "workspace:*",
     "next": "16.3.3",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "@sigilkode/governance": "workspace:*",
+    "@sigilkode/shimokodan-runtime": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22",
