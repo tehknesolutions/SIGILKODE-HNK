@@ -1,4 +1,8 @@
 import { createHash } from "node:crypto";
+import {
+  HNK_SOURCE_LOCK_VERSION,
+  materializeHnkContext
+} from "@sigilkode/hnk-source-adapters";
 
 const SCHEMA = "HNK-SIGILKODE-MANIFEST/V0.1";
 const ARTIFACT_TYPES = new Set([
@@ -10,10 +14,6 @@ const ARTIFACT_TYPES = new Set([
 const SEPHIROT = Object.freeze([
   "KETHER","CHOKHMAH","BINAH","CHESED","GEVURAH",
   "TIPHERETH","NETZACH","HOD","YESOD","MALKUTH"
-]);
-const HEBREW_22 = Object.freeze([
-  "ALEPH","BETH","GIMEL","DALETH","HE","VAV","ZAYIN","CHETH","TETH","YOD","KAPH",
-  "LAMED","MEM","NUN","SAMEKH","AYIN","PE","TZADDI","QOPH","RESH","SHIN","TAV"
 ]);
 
 export function normalizeIntent(value) {
@@ -33,7 +33,7 @@ function canonicalInput(input) {
     intentNormalized: normalizeIntent(intentLiteral),
     functionType: normalizeIntent(input.functionType || "PERSONALIZADO"),
     matrices: [...new Set((input.matrices || []).map(normalizeIntent))].sort(),
-    sourceLockVersion: String(input.sourceLockVersion || "HNK-SOURCE-LOCK/V0.1")
+    sourceLockVersion: String(input.sourceLockVersion || HNK_SOURCE_LOCK_VERSION)
   });
 }
 
@@ -45,23 +45,20 @@ function bytes(hash) {
   return hash.match(/../g).map((pair) => Number.parseInt(pair, 16));
 }
 
-function glyphId(byte) {
-  return `G${String((byte % 40) + 1).padStart(2, "0")}`;
-}
-
-function candidateCorrespondence(name, value, locator) {
+function candidateValue(value, locator, rationale) {
   return Object.freeze({
     value,
     provenance: Object.freeze({
-      source: "SIGILKODE_BUILTIN_V0.1",
+      source: "SIGILKODE_AUTHORED_CANDIDATE",
       revision: "V0.1",
       authority: "CANDIDATE",
-      locator
+      locator,
+      rationale
     })
   });
 }
 
-function buildSigilIR(hash) {
+function buildSigilIR(hash, glyphRefs) {
   const b = bytes(hash);
   const nodeCount = 12 + (b[0] % 11);
   const nodes = Array.from({ length: nodeCount }, (_, index) => Object.freeze({
@@ -79,7 +76,7 @@ function buildSigilIR(hash) {
     axes: Object.freeze(Array.from({ length: 12 }, (_, i) => i * 30)),
     nodes: Object.freeze(nodes),
     edges: Object.freeze(edges),
-    glyphRefs: Object.freeze(b.slice(0, 7).map(glyphId)),
+    glyphRefs: Object.freeze([...glyphRefs]),
     paletteRoles: Object.freeze(["VOID", "PRIMARY", "SECONDARY", "ORIGIN"])
   });
 }
@@ -96,7 +93,13 @@ export function compileArtifact(input) {
   const hash = sha256(deterministicPayload);
   const b = bytes(hash);
   const stableId = `SK-${hash.slice(0, 12).toUpperCase()}`;
-  const sigilIR = buildSigilIR(hash);
+
+  const hnk = materializeHnkContext({
+    hash,
+    intentNormalized: canonical.intentNormalized
+  });
+  const glyphIds = hnk.glyphSignature.map((entry) => entry.glyphId);
+  const sigilIR = buildSigilIR(hash, glyphIds);
 
   const base = {
     schemaVersion: SCHEMA,
@@ -107,17 +110,33 @@ export function compileArtifact(input) {
     functionType: canonical.functionType,
     selectedMatrices: canonical.matrices,
     deterministicSeed: hash,
+    sourceLockVersion: canonical.sourceLockVersion,
     authorityState: "CANDIDATE",
     lifecycle: "COMPILED",
     correspondences: Object.freeze({
-      sephira: candidateCorrespondence("sephira", SEPHIROT[b[0] % 10], "hash.byte[0]"),
-      hebrew22: candidateCorrespondence("hebrew22", HEBREW_22[b[1] % 22], "hash.byte[1]"),
-      hnk40Signature: candidateCorrespondence(
-        "hnk40Signature",
-        sigilIR.glyphRefs,
-        "hash.bytes[0..6] modulo 40; deterministic signature only, not semantic glyph mapping"
+      sephiraCandidate: candidateValue(
+        SEPHIROT[b[0] % 10],
+        "hash.byte[0] modulo 10",
+        "SIGILKODE deterministic authored candidate; not inherited historical correspondence."
       ),
-      hexColor: candidateCorrespondence("hexColor", `#${hash.slice(0, 6)}`, "hash[0..5]")
+      hexColorCandidate: candidateValue(
+        `#${hash.slice(0, 6)}`,
+        "sha256[0..5]",
+        "Deterministic UI/sigil color candidate; no sacred meaning is inferred from the hex value."
+      ),
+      hnk40Signature: Object.freeze({
+        value: Object.freeze(glyphIds),
+        glyphs: hnk.glyphSignature,
+        provenance: Object.freeze({
+          source: "@hnk/glyphs materialized snapshot",
+          sourceLock: hnk.sourceLock,
+          authority: "PREPRODUCTION_NOT_OFFICIAL",
+          rule: "hash bytes modulo 40 select existing G01..G40 identities; selection does not infer glyph semantics"
+        })
+      }),
+      hebrewReference: hnk.selectedHebrew,
+      hnkLanguageMatches: hnk.languageMatches,
+      hnkCanonDependencies: hnk.canonDependencies
     }),
     sigilIR,
     provenance: Object.freeze([
@@ -125,6 +144,11 @@ export function compileArtifact(input) {
         source: canonical.sourceLockVersion,
         authority: "REFERENCE",
         locator: "sources/HNK_SOURCE_LOCK_V0.1.json"
+      }),
+      Object.freeze({
+        source: "tehknesolutions/codex-hnk",
+        authority: "VERSION_LOCKED_SOURCE",
+        locator: "sources/materialized/*"
       }),
       Object.freeze({
         source: "USER_INTENT",
@@ -142,7 +166,8 @@ export function compileArtifact(input) {
       identity: Object.freeze({
         stableId,
         name: `SHIMOKODAN-${hash.slice(0, 6).toUpperCase()}`,
-        origin: "SIGILKODE"
+        origin: "SIGILKODE",
+        modelIndependent: true
       }),
       goals: Object.freeze([canonical.functionType, canonical.intentNormalized]),
       runtime: Object.freeze({
