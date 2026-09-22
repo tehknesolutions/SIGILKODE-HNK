@@ -15,7 +15,7 @@ SIGILKODE transforma uma **Intenção / Alef** em artefatos simbólicos e operac
 
 **SHIMOKODAN** é o termo HNK para **Agente-IA e/ou Servo Astral**.
 
-A nomenclatura `DAEMON` apareceu apenas na primeira prova de conceito e **não pertence ao produto alvo**. O arquivo legado é preservado exclusivamente como evidência histórica da evolução do protótipo.
+A nomenclatura `DAEMON` apareceu apenas na primeira prova de conceito e **não pertence ao produto alvo**. O histórico dessa primeira versão está documentado em `archive/README.md`; o HTML original será preservado separadamente antes de qualquer descarte.
 
 ## Estado atual
 
@@ -46,7 +46,8 @@ Abra `index.html` diretamente em um navegador moderno.
 
 - `index.html` — protótipo funcional standalone;
 - `docs/SIGILKODE_ARCHITECTURE_V0.1.md` — arquitetura do produto e mapa de convergência;
-- `archive/legacy-daemonos-v2.html` — primeira prova de conceito preservada como arquivo histórico.
+- `docs/ROADMAP_V0.1.md` — gates SK-001 → SK-010;
+- `archive/README.md` — política de preservação da prova de conceito original.
 
 ## Fontes do ecossistema HNK
 
@@ -73,12 +74,11 @@ ACTIVATED ≠ EVIDENCE_OF_SUPERNATURAL_EFFECT
 
 ## Próximo marco
 
-`SK-001 → SK-004`
+`SK-004 → SK-005`
 
-1. lock terminológico;
-2. contratos JSON/TypeScript;
-3. compilador determinístico + golden vectors;
-4. adapters para HNK40, idioma, cânone e correspondências.
+1. adapters reais para HNK40, idioma, cânone e correspondências;
+2. renderer SVG-first compartilhado;
+3. validação independente do workspace fora do GitHub-hosted runner.
 
 ---
 
