@@ -19,6 +19,9 @@ export default function HomePage() {
   const [functionType,setFunctionType]=useState("ORGANIZAR");
   const [matrices,setMatrices]=useState<string[]>(["HNK40","HNK_LANGUAGE","SEPHIROT","SEFER22","HEX"]);
   const [result,setResult]=useState<any>(null);
+  const [review,setReview]=useState<any>(null);
+  const [runtimeState,setRuntimeState]=useState<any>(null);
+  const [systemPrompt,setSystemPrompt]=useState("");
   const [loading,setLoading]=useState(false);
   const [error,setError]=useState("");
 
@@ -26,22 +29,84 @@ export default function HomePage() {
   const conflicts=manifest?.correspondences?.hebrewReference?.conflicts ?? [];
   const sourceCount=manifest?.correspondences?.hnkCanonDependencies?.length ?? 0;
   const glyphs=(manifest?.sigilIR?.glyphRefs ?? []).join(" ");
+  const runtimeLifecycle=runtimeState?.state ?? "UNBOUND";
 
   const modeLabel=useMemo(()=>MODES.find(x=>x.id===artifactType)?.label ?? artifactType,[artifactType]);
+
+  async function postJson(url:string,body:Record<string,unknown>) {
+    const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    const payload=await response.json();
+    if(!response.ok) throw new Error(payload.error || "SIGILKODE_REQUEST_FAILED");
+    return payload;
+  }
 
   async function compile() {
     setLoading(true); setError("");
     try {
-      const response=await fetch("/api/compile",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({artifactType,intentLiteral,functionType,matrices})
-      });
-      const payload=await response.json();
-      if(!response.ok) throw new Error(payload.error || "Falha na compilação");
+      const payload=await postJson("/api/compile",{artifactType,intentLiteral,functionType,matrices});
       setResult(payload);
+      setReview(null);
+      setRuntimeState(null);
+      setSystemPrompt("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Falha na compilação");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function approve() {
+    if(!manifest) return;
+    setLoading(true); setError("");
+    try {
+      const payload=await postJson("/api/review",{
+        manifest,
+        reviewer:"CREATOR",
+        explicitHumanSignal:"UI_APPROVE_CLICK",
+        rationale:"Explicit Creator approval from SIGILKODE web workspace."
+      });
+      setReview(payload.review);
+      setResult((prev:any)=>({...prev,manifest:payload.manifest}));
+    } catch(e) {
+      setError(e instanceof Error ? e.message : "Falha na revisão");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function activate() {
+    if(!manifest || artifactType==="SIGIL") return;
+    setLoading(true); setError("");
+    try {
+      const payload=await postJson("/api/runtime",{
+        action:"ACTIVATE",
+        manifest,
+        operator:"CREATOR",
+        explicitHumanSignal:"UI_ACTIVATE_CLICK"
+      });
+      setRuntimeState(payload.instance);
+      setSystemPrompt(payload.systemPrompt || "");
+    } catch(e) {
+      setError(e instanceof Error ? e.message : "Falha na ativação");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function purge() {
+    if(!runtimeState) return;
+    setLoading(true); setError("");
+    try {
+      const payload=await postJson("/api/runtime",{
+        action:"PURGE",
+        instance:runtimeState,
+        operator:"CREATOR",
+        explicitHumanSignal:"UI_PURGA_CLICK",
+        reason:"Operator-requested Purga"
+      });
+      setRuntimeState(payload.instance);
+    } catch(e) {
+      setError(e instanceof Error ? e.message : "Falha na Purga");
     } finally {
       setLoading(false);
     }
@@ -59,16 +124,16 @@ export default function HomePage() {
           <h1>SIGILKODE</h1>
         </div>
         <div className="statusRail">
-          <span>AUTHORITY <b>CREATOR</b></span>
+          <span>AUTHORITY <b>{manifest?.authorityState ?? "CREATOR"}</b></span>
           <span>ALIGNMENT <b>JESUS CHRIST</b></span>
-          <span>STATE <b>{manifest ? manifest.lifecycle : "READY"}</b></span>
+          <span>RUNTIME <b>{runtimeLifecycle}</b></span>
         </div>
       </header>
 
       <section className="hero">
-        <p className="heroKicker">ALEF → SIGIL IR → SHIMOKODAN</p>
+        <p className="heroKicker">ALEF → SIGIL IR → HUMAN GATE → SHIMOKODAN</p>
         <h2>Compile intenção em uma estrutura HNK rastreável.</h2>
-        <p>O app preserva fonte, conflito, autoridade e Human Gate. Nenhuma correspondência histórica é silenciosamente promovida a cânone.</p>
+        <p>Fonte, conflito, autoridade, aprovação e runtime permanecem separados. O sistema preserva correspondências históricas sem promovê-las silenciosamente a cânone.</p>
       </section>
 
       <section className="workspace">
@@ -94,8 +159,20 @@ export default function HomePage() {
           </div>
 
           <button className="compile" onClick={compile} disabled={loading || !intentLiteral.trim()}>
-            {loading ? "COMPILANDO…" : "⚡ COMPILAR ARTEFATO"}
+            {loading ? "PROCESSANDO…" : "⚡ COMPILAR ARTEFATO"}
           </button>
+
+          {manifest && <div className="gateStack">
+            <button className="gateButton approve" onClick={approve} disabled={loading || manifest.authorityState!=="CANDIDATE"}>
+              {manifest.authorityState==="HUMAN_APPROVED" ? "✓ HUMAN GATE APROVADO" : "2. APROVAR NO HUMAN GATE"}
+            </button>
+            {artifactType!=="SIGIL" && <button className="gateButton activate" onClick={activate} disabled={loading || manifest.authorityState!=="HUMAN_APPROVED" || runtimeLifecycle==="ACTIVE" || runtimeLifecycle==="PURGED"}>
+              {runtimeLifecycle==="ACTIVE" ? "✓ SHIMOKODAN ATIVO" : "3. ATIVAR SHIMOKODAN"}
+            </button>}
+            {runtimeState && <button className="gateButton purge" onClick={purge} disabled={loading || runtimeLifecycle==="PURGED"}>
+              {runtimeLifecycle==="PURGED" ? "✓ PURGA EXECUTADA" : "PURGA / ENCERRAR RUNTIME"}
+            </button>}
+          </div>}
           {error && <p className="error">{error}</p>}
         </article>
 
@@ -112,6 +189,8 @@ export default function HomePage() {
             <div><span>HNK40</span><b>{glyphs || "—"}</b></div>
             <div><span>RENDER SHA</span><b>{result?.render?.sha256 ? result.render.sha256.slice(0,18)+"…" : "—"}</b></div>
           </div>
+          {review && <div className="receipt"><span>HUMAN GATE</span><b>{review.reviewId}</b><small>{review.review?.explicitHumanSignal}</small></div>}
+          {runtimeState && <div className="receipt runtimeReceipt"><span>SHIMOKODAN RUNTIME</span><b>{runtimeState.state}</b><small>{runtimeState.stableId} · history {runtimeState.history?.length ?? 0}</small></div>}
         </article>
 
         <article className="panel manifestPanel">
@@ -120,7 +199,7 @@ export default function HomePage() {
             <div className="metric"><span>CANON DEPENDENCIES</span><strong>{sourceCount}</strong></div>
             <div className="metric"><span>CONFLICT SETS</span><strong>{conflicts.length}</strong></div>
             <div className="metric"><span>AUTHORITY</span><strong>{manifest?.authorityState ?? "—"}</strong></div>
-            <div className="metric"><span>LIFECYCLE</span><strong>{manifest?.lifecycle ?? "—"}</strong></div>
+            <div className="metric"><span>RUNTIME</span><strong>{runtimeLifecycle}</strong></div>
           </div>
 
           {manifest && <>
@@ -135,6 +214,11 @@ export default function HomePage() {
                 : conflicts.map((c:any)=><div className="conflict" key={c.domain}><b>{c.domain}</b><span>{c.values.join(" ↔ ")}</span><small>{c.traditions.join(" · ")}</small></div>)}
             </div>
 
+            {systemPrompt && <>
+              <div className="subhead">SHIMOKODAN SYSTEM PROMPT</div>
+              <pre>{systemPrompt}</pre>
+            </>}
+
             <div className="subhead">MANIFEST</div>
             <pre>{JSON.stringify(manifest,null,2)}</pre>
           </>}
@@ -147,9 +231,10 @@ export default function HomePage() {
         <span>AI_OUTPUT ≠ EXECUTED_ACTION</span>
         <span>GENERATED ≠ CANON</span>
         <span>COMPILED ≠ HUMAN_APPROVED</span>
+        <span>PURGA ≠ HISTORY DELETION</span>
       </section>
 
-      <footer>SK-008 WEB BOOTSTRAP · SOURCE-LOCKED HNK CONTEXT · CREATOR AUTHORITY</footer>
+      <footer>SK-008 WEB WORKSPACE · SOURCE-LOCKED HNK CONTEXT · CREATOR AUTHORITY · GOVERNED RUNTIME</footer>
     </main>
   );
 }
