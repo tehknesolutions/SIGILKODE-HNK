@@ -1,0 +1,49 @@
+{
+  "schema": "HNK-SOURCE-LOCK/V0.1",
+  "generatedFor": "SIGILKODE-HNK",
+  "status": "REFERENCED_NOT_IMPORTED",
+  "sources": [
+    {
+      "repository": "tehknesolutions/codex-hnk",
+      "commit": "2eafcb1f8f017fd7014cebde64bde41b29b36d2d",
+      "role": ["HNK40", "HNK_LANGUAGE", "CANON", "CORRESPONDENCES", "UI", "EVIDENCE", "VAULT"],
+      "authority": "CANONICAL_SOURCE_REFERENCE"
+    },
+    {
+      "repository": "tehknesolutions/cubo-hnk",
+      "commit": "615474ec8b204f0ca4447223c0d01cf0b367c3e3",
+      "role": ["DETERMINISTIC_PIPELINE", "MANIFEST", "LEGALITY", "SELFTEST", "ATTESTATION"],
+      "authority": "ENGINEERING_REFERENCE"
+    },
+    {
+      "repository": "tehknesolutions/HNK-VERSE",
+      "commit": "490d579f2fdbcea9d5f1f5195bac262a824f7840",
+      "role": ["AGENT_IDENTITY", "MEMORY", "PERMISSIONS", "CONTINUITY", "EVENT_AUTHORITY"],
+      "authority": "DOMAIN_REFERENCE"
+    },
+    {
+      "repository": "tehknesolutions/SW-ENGLISH",
+      "commit": "a03747d5ef85c3ab18376a398534603bf70ae3c9",
+      "role": ["SHIMOKODAN_LINEAGE", "REFLECTIVE_MEMORY", "VOICE", "PRESENCE"],
+      "authority": "LEGACY_IMPLEMENTATION_REFERENCE"
+    },
+    {
+      "repository": "tehknesolutions/simpleway-hnk",
+      "commit": "f6f4ad17491251e00a527fafdd8218c1dfdc20c5",
+      "role": ["LANGUAGE_CONSUMER_DISCIPLINE", "HUMAN_GATES"],
+      "authority": "PRODUCT_REFERENCE"
+    },
+    {
+      "repository": "tehknesolutions/tehkne-storyforge",
+      "commit": "16b5eafe66384a191e6de3b37dbefd62b93f92b4",
+      "role": ["CREATOR_AUTHORITY", "PROVENANCE", "REVIEW_TO_CANON", "DURABLE_WORKSPACE"],
+      "authority": "GOVERNANCE_REFERENCE"
+    }
+  ],
+  "invariants": [
+    "REFERENCE != IMPORT",
+    "LEGACY_CLAIM != CURRENT_EVIDENCE",
+    "GENERATED != CANON",
+    "CREATOR_APPROVAL_REQUIRED_FOR_CANON_PROMOTION"
+  ]
+}
