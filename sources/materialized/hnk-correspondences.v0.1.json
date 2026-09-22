@@ -1,0 +1,554 @@
+{
+  "snapshot_schema": "SIGILKODE-HNK-CORRESPONDENCE-SNAPSHOT/V0.1",
+  "source": {
+    "repository": "tehknesolutions/codex-hnk",
+    "commit": "2eafcb1f8f017fd7014cebde64bde41b29b36d2d",
+    "paths": [
+      {
+        "path": "packages/correspondence-registry/src/datasets.ts",
+        "blob_sha": "936ac9c83186bb8dd5c3ae175c36eb58dd829098"
+      },
+      {
+        "path": "packages/correspondence-registry/src/tarot-lineage-datasets.ts",
+        "blob_sha": "cc0a474e52255481a2175a1b583fe0e453da0127"
+      }
+    ],
+    "packages": [
+      "@hnk/correspondence-contract",
+      "@hnk/correspondence-registry"
+    ]
+  },
+  "authority": {
+    "class": "MATERIALIZED_READ_ONLY_SNAPSHOT",
+    "default_decision": "REFERENCE",
+    "silent_conflict_resolution": false,
+    "automatic_canon_import": false
+  },
+  "letters": [
+    [
+      "ALEPH",
+      1
+    ],
+    [
+      "BETH",
+      2
+    ],
+    [
+      "GIMEL",
+      3
+    ],
+    [
+      "DALETH",
+      4
+    ],
+    [
+      "HEH",
+      5
+    ],
+    [
+      "VAV",
+      6
+    ],
+    [
+      "ZAIN",
+      7
+    ],
+    [
+      "CHETH",
+      8
+    ],
+    [
+      "TETH",
+      9
+    ],
+    [
+      "YOD",
+      10
+    ],
+    [
+      "KAPH",
+      11
+    ],
+    [
+      "LAMED",
+      12
+    ],
+    [
+      "MEM",
+      13
+    ],
+    [
+      "NUN",
+      14
+    ],
+    [
+      "SAMEKH",
+      15
+    ],
+    [
+      "AYIN",
+      16
+    ],
+    [
+      "PEH",
+      17
+    ],
+    [
+      "TZADDI",
+      18
+    ],
+    [
+      "QOPH",
+      19
+    ],
+    [
+      "RESH",
+      20
+    ],
+    [
+      "SHIN",
+      21
+    ],
+    [
+      "TAV",
+      22
+    ]
+  ],
+  "sources": {
+    "SEFER_YETZIRAH_REFERENCE_A": {
+      "id": "SRC-SY-REFERENCE-A",
+      "title": "Sefer Yetzirah",
+      "edition_or_recension": "Consulted reference text; planetary mappings are recension-sensitive",
+      "date_label": "ancient/late-antique text; consulted modern digital edition"
+    },
+    "GOLDEN_DAWN_STANDARD": {
+      "id": "SRC-GD-STANDARD",
+      "title": "Golden Dawn correspondence system",
+      "author_or_order": "Hermetic Order of the Golden Dawn",
+      "date_label": "late 19th century"
+    },
+    "DEL_DEBBIO_KABBALAH_HERMETICA": {
+      "id": "SRC-DEL-DEBBIO-KABBALAH-HERMETICA",
+      "title": "Kabbalah Hermética",
+      "author_or_order": "Marcelo Del Debbio",
+      "date_label": "research source"
+    },
+    "ELIPHAS_LEVI_SEQUENCE": {
+      "id": "SRC-LEVI-DOGME-RITUEL",
+      "title": "Dogme et Rituel de la Haute Magie",
+      "author_or_order": "Éliphas Lévi",
+      "date_label": "1854–1856"
+    },
+    "CROWLEY_THOTH": {
+      "id": "SRC-CROWLEY-BOOK-OF-THOTH",
+      "title": "The Book of Thoth",
+      "author_or_order": "Aleister Crowley",
+      "date_label": "1944 publication"
+    }
+  },
+  "mappings": {
+    "letter_class": {
+      "ALEPH": "MOTHER",
+      "BETH": "DOUBLE",
+      "GIMEL": "DOUBLE",
+      "DALETH": "DOUBLE",
+      "HEH": "SIMPLE",
+      "VAV": "SIMPLE",
+      "ZAIN": "SIMPLE",
+      "CHETH": "SIMPLE",
+      "TETH": "SIMPLE",
+      "YOD": "SIMPLE",
+      "KAPH": "DOUBLE",
+      "LAMED": "SIMPLE",
+      "MEM": "MOTHER",
+      "NUN": "SIMPLE",
+      "SAMEKH": "SIMPLE",
+      "AYIN": "SIMPLE",
+      "PEH": "DOUBLE",
+      "TZADDI": "SIMPLE",
+      "QOPH": "SIMPLE",
+      "RESH": "DOUBLE",
+      "SHIN": "MOTHER",
+      "TAV": "DOUBLE"
+    },
+    "sefer": {
+      "element": {
+        "ALEPH": "AIR",
+        "MEM": "WATER",
+        "SHIN": "FIRE"
+      },
+      "planet": {
+        "BETH": "SATURN",
+        "GIMEL": "JUPITER",
+        "DALETH": "MARS",
+        "KAPH": "SUN",
+        "PEH": "VENUS",
+        "RESH": "MERCURY",
+        "TAV": "MOON"
+      },
+      "zodiac": {
+        "HEH": "ARIES",
+        "VAV": "TAURUS",
+        "ZAIN": "GEMINI",
+        "CHETH": "CANCER",
+        "TETH": "LEO",
+        "YOD": "VIRGO",
+        "LAMED": "LIBRA",
+        "NUN": "SCORPIO",
+        "SAMEKH": "SAGITTARIUS",
+        "AYIN": "CAPRICORN",
+        "TZADDI": "AQUARIUS",
+        "QOPH": "PISCES"
+      }
+    },
+    "golden_dawn": {
+      "element": {
+        "ALEPH": "AIR",
+        "MEM": "WATER",
+        "SHIN": "FIRE"
+      },
+      "planet": {
+        "BETH": "MERCURY",
+        "GIMEL": "MOON",
+        "DALETH": "VENUS",
+        "KAPH": "JUPITER",
+        "PEH": "MARS",
+        "RESH": "SUN",
+        "TAV": "SATURN"
+      },
+      "zodiac": {
+        "HEH": "ARIES",
+        "VAV": "TAURUS",
+        "ZAIN": "GEMINI",
+        "CHETH": "CANCER",
+        "TETH": "LEO",
+        "YOD": "VIRGO",
+        "LAMED": "LIBRA",
+        "NUN": "SCORPIO",
+        "SAMEKH": "SAGITTARIUS",
+        "AYIN": "CAPRICORN",
+        "TZADDI": "AQUARIUS",
+        "QOPH": "PISCES"
+      },
+      "tarot": {
+        "ALEPH": {
+          "number": 0,
+          "title": "FOOL"
+        },
+        "BETH": {
+          "number": 1,
+          "title": "MAGICIAN"
+        },
+        "GIMEL": {
+          "number": 2,
+          "title": "HIGH_PRIESTESS"
+        },
+        "DALETH": {
+          "number": 3,
+          "title": "EMPRESS"
+        },
+        "HEH": {
+          "number": 4,
+          "title": "EMPEROR"
+        },
+        "VAV": {
+          "number": 5,
+          "title": "HIEROPHANT"
+        },
+        "ZAIN": {
+          "number": 6,
+          "title": "LOVERS"
+        },
+        "CHETH": {
+          "number": 7,
+          "title": "CHARIOT"
+        },
+        "TETH": {
+          "number": 11,
+          "title": "STRENGTH"
+        },
+        "YOD": {
+          "number": 9,
+          "title": "HERMIT"
+        },
+        "KAPH": {
+          "number": 10,
+          "title": "WHEEL_OF_FORTUNE"
+        },
+        "LAMED": {
+          "number": 8,
+          "title": "JUSTICE"
+        },
+        "MEM": {
+          "number": 12,
+          "title": "HANGED_MAN"
+        },
+        "NUN": {
+          "number": 13,
+          "title": "DEATH"
+        },
+        "SAMEKH": {
+          "number": 14,
+          "title": "TEMPERANCE"
+        },
+        "AYIN": {
+          "number": 15,
+          "title": "DEVIL"
+        },
+        "PEH": {
+          "number": 16,
+          "title": "TOWER"
+        },
+        "TZADDI": {
+          "number": 17,
+          "title": "STAR"
+        },
+        "QOPH": {
+          "number": 18,
+          "title": "MOON"
+        },
+        "RESH": {
+          "number": 19,
+          "title": "SUN"
+        },
+        "SHIN": {
+          "number": 20,
+          "title": "JUDGEMENT"
+        },
+        "TAV": {
+          "number": 21,
+          "title": "WORLD"
+        }
+      },
+      "tree_path": {
+        "ALEPH": "KETHER↔CHOKMAH",
+        "BETH": "KETHER↔BINAH",
+        "GIMEL": "KETHER↔TIPHERETH",
+        "DALETH": "CHOKMAH↔BINAH",
+        "HEH": "CHOKMAH↔TIPHERETH",
+        "VAV": "CHOKMAH↔CHESED",
+        "ZAIN": "BINAH↔TIPHERETH",
+        "CHETH": "BINAH↔GEBURAH",
+        "TETH": "CHESED↔GEBURAH",
+        "YOD": "CHESED↔TIPHERETH",
+        "KAPH": "CHESED↔NETZACH",
+        "LAMED": "GEBURAH↔TIPHERETH",
+        "MEM": "GEBURAH↔HOD",
+        "NUN": "TIPHERETH↔NETZACH",
+        "SAMEKH": "TIPHERETH↔YESOD",
+        "AYIN": "TIPHERETH↔HOD",
+        "PEH": "NETZACH↔HOD",
+        "TZADDI": "NETZACH↔YESOD",
+        "QOPH": "NETZACH↔MALKUTH",
+        "RESH": "HOD↔YESOD",
+        "SHIN": "HOD↔MALKUTH",
+        "TAV": "YESOD↔MALKUTH"
+      }
+    },
+    "levi_tarot": {
+      "ALEPH": {
+        "number": 1,
+        "title": "MAGICIAN"
+      },
+      "BETH": {
+        "number": 2,
+        "title": "HIGH_PRIESTESS"
+      },
+      "GIMEL": {
+        "number": 3,
+        "title": "EMPRESS"
+      },
+      "DALETH": {
+        "number": 4,
+        "title": "EMPEROR"
+      },
+      "HEH": {
+        "number": 5,
+        "title": "HIEROPHANT"
+      },
+      "VAV": {
+        "number": 6,
+        "title": "LOVERS"
+      },
+      "ZAIN": {
+        "number": 7,
+        "title": "CHARIOT"
+      },
+      "CHETH": {
+        "number": 8,
+        "title": "JUSTICE"
+      },
+      "TETH": {
+        "number": 9,
+        "title": "HERMIT"
+      },
+      "YOD": {
+        "number": 10,
+        "title": "WHEEL_OF_FORTUNE"
+      },
+      "KAPH": {
+        "number": 11,
+        "title": "STRENGTH"
+      },
+      "LAMED": {
+        "number": 12,
+        "title": "HANGED_MAN"
+      },
+      "MEM": {
+        "number": 13,
+        "title": "DEATH"
+      },
+      "NUN": {
+        "number": 14,
+        "title": "TEMPERANCE"
+      },
+      "SAMEKH": {
+        "number": 15,
+        "title": "DEVIL"
+      },
+      "AYIN": {
+        "number": 16,
+        "title": "TOWER"
+      },
+      "PEH": {
+        "number": 17,
+        "title": "STAR"
+      },
+      "TZADDI": {
+        "number": 18,
+        "title": "MOON"
+      },
+      "QOPH": {
+        "number": 19,
+        "title": "SUN"
+      },
+      "RESH": {
+        "number": 20,
+        "title": "JUDGEMENT"
+      },
+      "SHIN": {
+        "number": 0,
+        "title": "FOOL"
+      },
+      "TAV": {
+        "number": 21,
+        "title": "WORLD"
+      }
+    },
+    "thoth_tarot": {
+      "ALEPH": {
+        "number": 0,
+        "title": "FOOL"
+      },
+      "BETH": {
+        "number": 1,
+        "title": "MAGUS"
+      },
+      "GIMEL": {
+        "number": 2,
+        "title": "PRIESTESS"
+      },
+      "DALETH": {
+        "number": 3,
+        "title": "EMPRESS"
+      },
+      "HEH": {
+        "number": 17,
+        "title": "STAR"
+      },
+      "VAV": {
+        "number": 5,
+        "title": "HIEROPHANT"
+      },
+      "ZAIN": {
+        "number": 6,
+        "title": "LOVERS"
+      },
+      "CHETH": {
+        "number": 7,
+        "title": "CHARIOT"
+      },
+      "TETH": {
+        "number": 11,
+        "title": "LUST"
+      },
+      "YOD": {
+        "number": 9,
+        "title": "HERMIT"
+      },
+      "KAPH": {
+        "number": 10,
+        "title": "FORTUNE"
+      },
+      "LAMED": {
+        "number": 8,
+        "title": "ADJUSTMENT"
+      },
+      "MEM": {
+        "number": 12,
+        "title": "HANGED_MAN"
+      },
+      "NUN": {
+        "number": 13,
+        "title": "DEATH"
+      },
+      "SAMEKH": {
+        "number": 14,
+        "title": "ART"
+      },
+      "AYIN": {
+        "number": 15,
+        "title": "DEVIL"
+      },
+      "PEH": {
+        "number": 16,
+        "title": "TOWER"
+      },
+      "TZADDI": {
+        "number": 4,
+        "title": "EMPEROR"
+      },
+      "QOPH": {
+        "number": 18,
+        "title": "MOON"
+      },
+      "RESH": {
+        "number": 19,
+        "title": "SUN"
+      },
+      "SHIN": {
+        "number": 20,
+        "title": "AEON"
+      },
+      "TAV": {
+        "number": 21,
+        "title": "UNIVERSE"
+      }
+    }
+  },
+  "del_debbio": {
+    "available_letters": "ALL_EXCEPT_ALEPH",
+    "inherits_reference_pattern_from": "GOLDEN_DAWN_STANDARD",
+    "explicit_element": {
+      "MEM": "WATER",
+      "SHIN": "FIRE"
+    },
+    "gaps": [
+      {
+        "subject_id": "HEBREW_ALEPH",
+        "domain": "TAROT_TRUMP",
+        "reason": "The supplied PDF ends at the beginning of Beit; Aleph is named but its individual sheet is absent."
+      },
+      {
+        "subject_id": "HEBREW_ALEPH",
+        "domain": "TREE_PATH",
+        "reason": "The supplied PDF does not contain Aleph's individual path sheet."
+      },
+      {
+        "subject_id": "HEBREW_ALEPH",
+        "domain": "ELEMENT",
+        "reason": "No Aleph sheet is present; do not infer the element from Golden Dawn into the Del Debbio dataset."
+      }
+    ]
+  }
+}
