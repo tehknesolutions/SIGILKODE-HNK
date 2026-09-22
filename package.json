@@ -1,0 +1,19 @@
+{
+  "name": "sigilkode-hnk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.1.0",
+  "engines": {
+    "node": "22.x",
+    "pnpm": "12.x"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "pnpm --filter @sigilkode/contract typecheck && pnpm --filter @sigilkode/engine typecheck",
+    "check": "pnpm typecheck && pnpm test"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3"
+  }
+}
