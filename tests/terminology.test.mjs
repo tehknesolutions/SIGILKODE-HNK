@@ -3,12 +3,13 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 
-const ROOT = new URL("../", import.meta.url);
 const ALLOWED_HISTORY = new Set([
   "README.md",
   "docs/SIGILKODE_ARCHITECTURE_V0.1.md",
   "docs/ROADMAP_V0.1.md"
 ]);
+const LEGACY_TOKEN = "DAE" + "MON";
+const LEGACY_OS_TOKEN = LEGACY_TOKEN + "_OS";
 
 async function walk(dir, out = []) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -21,7 +22,7 @@ async function walk(dir, out = []) {
   return out;
 }
 
-test("SK-001 no legacy DAEMON token leaks into executable/runtime source", async () => {
+test("SK-001 legacy entity term does not leak into executable/runtime source", async () => {
   const rootPath = new URL("..", import.meta.url).pathname;
   const files = await walk(rootPath);
   const offenders = [];
@@ -29,8 +30,8 @@ test("SK-001 no legacy DAEMON token leaks into executable/runtime source", async
     const rel = relative(rootPath, path).replaceAll("\\", "/");
     if (ALLOWED_HISTORY.has(rel)) continue;
     if (![".mjs", ".js", ".ts", ".tsx", ".html", ".json", ".yaml", ".yml"].includes(extname(path))) continue;
-    const text = await readFile(path, "utf8");
-    if (/\bDAEMON(?:_OS)?\b/i.test(text)) offenders.push(rel);
+    const text = (await readFile(path, "utf8")).toUpperCase();
+    if (text.includes(LEGACY_TOKEN) || text.includes(LEGACY_OS_TOKEN)) offenders.push(rel);
   }
   assert.deepEqual(offenders, []);
 });
