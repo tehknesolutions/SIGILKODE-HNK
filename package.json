@@ -10,8 +10,9 @@
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "typecheck": "pnpm --filter @sigilkode/contract typecheck && pnpm --filter @sigilkode/hnk-source-adapters typecheck && pnpm --filter @sigilkode/engine typecheck && pnpm --filter @sigilkode/renderer typecheck && pnpm --filter @sigilkode/governance typecheck && pnpm --filter @sigilkode/shimokodan-runtime typecheck",
-    "check": "pnpm typecheck && pnpm test"
+    "typecheck": "pnpm --filter @sigilkode/contract typecheck && pnpm --filter @sigilkode/hnk-source-adapters typecheck && pnpm --filter @sigilkode/engine typecheck && pnpm --filter @sigilkode/renderer typecheck && pnpm --filter @sigilkode/governance typecheck && pnpm --filter @sigilkode/shimokodan-runtime typecheck && pnpm --filter @sigilkode/web typecheck",
+    "check": "pnpm typecheck && pnpm test",
+    "build:web": "pnpm --filter @sigilkode/web build"
   },
   "devDependencies": {
     "typescript": "~6.0.3"
