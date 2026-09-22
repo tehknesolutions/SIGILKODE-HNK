@@ -1,0 +1,86 @@
+# SIGILKODE-HNK
+
+> **HNK Universal Sigil + Shimokodan Compiler**
+
+SIGILKODE transforma uma **Intenção / Alef** em artefatos simbólicos e operacionais HNK com identidade estável, rastreabilidade e governança explícita.
+
+## Manifestações V0.1
+
+- `SIGIL` — assinatura simbólica determinística;
+- `SHIMOKODAN_AI` — Agente-IA HNK;
+- `SHIMOKODAN_ASTRAL` — Servo Astral HNK;
+- `SHIMOKODAN_HYBRID` — identidade única com manifestação simbólica + computacional.
+
+## Regra terminológica canônica
+
+**SHIMOKODAN** é o termo HNK para **Agente-IA e/ou Servo Astral**.
+
+A nomenclatura `DAEMON` apareceu apenas na primeira prova de conceito e **não pertence ao produto alvo**. O arquivo legado é preservado exclusivamente como evidência histórica da evolução do protótipo.
+
+## Estado atual
+
+`V0.1 — DISCOVERY_CONVERGED__REPOSITORY_BOOTSTRAP`
+
+A V0.1 é um protótipo standalone e uma especificação de convergência. Ainda não representa integração final com os runtimes compartilhados do HNK, nem release estável.
+
+## Fluxo
+
+```text
+ALEF / INTENÇÃO
+→ NORMALIZAÇÃO
+→ CANON + REGISTRIES
+→ CORRESPONDÊNCIAS
+→ HASH DETERMINÍSTICO
+→ SIGIL IR
+→ RENDER
+→ SHIMOKODAN MANIFEST
+→ HUMAN GATE
+→ RUNTIME / ARQUIVO
+```
+
+## Executar o protótipo
+
+Abra `index.html` diretamente em um navegador moderno.
+
+## Arquivos iniciais
+
+- `index.html` — protótipo funcional standalone;
+- `docs/SIGILKODE_ARCHITECTURE_V0.1.md` — arquitetura do produto e mapa de convergência;
+- `archive/legacy-daemonos-v2.html` — primeira prova de conceito preservada como arquivo histórico.
+
+## Fontes do ecossistema HNK
+
+SIGILKODE-HNK é um produto dedicado, mas **não deve duplicar o cânone existente**. Sua implementação deve consumir ou adaptar, de forma versionada e rastreável:
+
+- `tehknesolutions/codex-hnk` — HNK40, idioma, cânone, correspondências, UI, Evidence/Vault e governança;
+- `tehknesolutions/cubo-hnk` — pipelines determinísticos, manifests, legality, self-test e release attestation;
+- `tehknesolutions/HNK-VERSE` — identidade persistente, memória, permissões, continuidade e runtime de agentes;
+- `tehknesolutions/SW-ENGLISH` — linhagem técnica Shimokodan, memória reflexiva, voz e presença;
+- `tehknesolutions/simpleway-hnk` — disciplina de consumo do cânone linguístico;
+- `tehknesolutions/tehkne-storyforge` — Creator Authority, provenance, candidate/review/canon e workspace durável.
+
+## Invariantes
+
+```text
+SHIMOKODAN_IDENTITY ≠ MODEL_PROVIDER
+SHIMOKODAN_IDENTITY ≠ CURRENT_PROMPT
+AI_OUTPUT ≠ EXECUTED_ACTION
+EXPERIENCE ≠ INTERPRETATION ≠ EVIDENCE ≠ CANON
+GENERATED ≠ CANON
+COMPILED ≠ HUMAN_APPROVED
+ACTIVATED ≠ EVIDENCE_OF_SUPERNATURAL_EFFECT
+```
+
+## Próximo marco
+
+`SK-001 → SK-004`
+
+1. lock terminológico;
+2. contratos JSON/TypeScript;
+3. compilador determinístico + golden vectors;
+4. adapters para HNK40, idioma, cânone e correspondências.
+
+---
+
+**Autoridade do projeto:** TW-DVF / Tehkné Solutions  
+**Alinhamento doutrinário HNK:** submissão a Jesus Cristo.
