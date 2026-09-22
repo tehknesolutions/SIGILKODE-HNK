@@ -1,0 +1,481 @@
+{
+  "snapshot_schema": "SIGILKODE-HNK40-SNAPSHOT/V0.1",
+  "source": {
+    "repository": "tehknesolutions/codex-hnk",
+    "commit": "2eafcb1f8f017fd7014cebde64bde41b29b36d2d",
+    "path": "packages/hnk-glyphs/src/index.mjs",
+    "blob_sha": "e9390d1b1828f839f7b7f7fec29910cc40eb197b",
+    "package": "@hnk/glyphs",
+    "package_status": "PREPRODUCTION_NOT_OFFICIAL",
+    "glyph_set_sha256": "78668df0f707952b7c280de52526abaa2b7900597fb8ff362a3a08641fd1bce5"
+  },
+  "authority": {
+    "class": "MATERIALIZED_READ_ONLY_SNAPSHOT",
+    "visual_state": "PREPRODUCTION_NOT_OFFICIAL",
+    "semantic_inference": false
+  },
+  "safe_transliteration_map": {
+    "A": "G01",
+    "E": "G02",
+    "I": "G03",
+    "O": "G04",
+    "U": "G05",
+    "H": "G07",
+    "M": "G11",
+    "N": "G12",
+    "L": "G14",
+    "R": "G15",
+    "B": "G18",
+    "D": "G19",
+    "P": "G21",
+    "T": "G22",
+    "K": "G23",
+    "S": "G26",
+    "TS": "G30",
+    "V": "G31",
+    "Z": "G32",
+    "Y": "G40"
+  },
+  "entries": [
+    {
+      "glyphId": "G01",
+      "phonemeIpa": "/a/",
+      "worldId": "W1",
+      "protoglyphColumn": 1,
+      "key": {
+        "row": 1,
+        "column": 1,
+        "keyId": "R1C01"
+      }
+    },
+    {
+      "glyphId": "G02",
+      "phonemeIpa": "/e/",
+      "worldId": "W1",
+      "protoglyphColumn": 2,
+      "key": {
+        "row": 1,
+        "column": 2,
+        "keyId": "R1C02"
+      }
+    },
+    {
+      "glyphId": "G03",
+      "phonemeIpa": "/i/",
+      "worldId": "W1",
+      "protoglyphColumn": 3,
+      "key": {
+        "row": 1,
+        "column": 3,
+        "keyId": "R1C03"
+      }
+    },
+    {
+      "glyphId": "G04",
+      "phonemeIpa": "/o/",
+      "worldId": "W1",
+      "protoglyphColumn": 4,
+      "key": {
+        "row": 1,
+        "column": 4,
+        "keyId": "R1C04"
+      }
+    },
+    {
+      "glyphId": "G05",
+      "phonemeIpa": "/u/",
+      "worldId": "W1",
+      "protoglyphColumn": 5,
+      "key": {
+        "row": 1,
+        "column": 5,
+        "keyId": "R1C05"
+      }
+    },
+    {
+      "glyphId": "G06",
+      "phonemeIpa": "/ə/",
+      "worldId": "W1",
+      "protoglyphColumn": 6,
+      "key": {
+        "row": 1,
+        "column": 6,
+        "keyId": "R1C06"
+      }
+    },
+    {
+      "glyphId": "G07",
+      "phonemeIpa": "/h/",
+      "worldId": "W1",
+      "protoglyphColumn": 7,
+      "key": {
+        "row": 1,
+        "column": 7,
+        "keyId": "R1C07"
+      }
+    },
+    {
+      "glyphId": "G08",
+      "phonemeIpa": "/ʔ/",
+      "worldId": "W1",
+      "protoglyphColumn": 8,
+      "key": {
+        "row": 1,
+        "column": 8,
+        "keyId": "R1C08"
+      }
+    },
+    {
+      "glyphId": "G09",
+      "phonemeIpa": "/ʕ/",
+      "worldId": "W1",
+      "protoglyphColumn": 9,
+      "key": {
+        "row": 1,
+        "column": 9,
+        "keyId": "R1C09"
+      }
+    },
+    {
+      "glyphId": "G10",
+      "phonemeIpa": "/ħ/",
+      "worldId": "W1",
+      "protoglyphColumn": 10,
+      "key": {
+        "row": 1,
+        "column": 10,
+        "keyId": "R1C10"
+      }
+    },
+    {
+      "glyphId": "G11",
+      "phonemeIpa": "/m/",
+      "worldId": "W2",
+      "protoglyphColumn": 1,
+      "key": {
+        "row": 2,
+        "column": 1,
+        "keyId": "R2C01"
+      }
+    },
+    {
+      "glyphId": "G12",
+      "phonemeIpa": "/n/",
+      "worldId": "W2",
+      "protoglyphColumn": 2,
+      "key": {
+        "row": 2,
+        "column": 2,
+        "keyId": "R2C02"
+      }
+    },
+    {
+      "glyphId": "G13",
+      "phonemeIpa": "/ŋ/",
+      "worldId": "W2",
+      "protoglyphColumn": 3,
+      "key": {
+        "row": 2,
+        "column": 3,
+        "keyId": "R2C03"
+      }
+    },
+    {
+      "glyphId": "G14",
+      "phonemeIpa": "/l/",
+      "worldId": "W2",
+      "protoglyphColumn": 4,
+      "key": {
+        "row": 2,
+        "column": 4,
+        "keyId": "R2C04"
+      }
+    },
+    {
+      "glyphId": "G15",
+      "phonemeIpa": "/r/",
+      "worldId": "W2",
+      "protoglyphColumn": 5,
+      "key": {
+        "row": 2,
+        "column": 5,
+        "keyId": "R2C05"
+      }
+    },
+    {
+      "glyphId": "G16",
+      "phonemeIpa": "/j/",
+      "worldId": "W2",
+      "protoglyphColumn": 6,
+      "key": {
+        "row": 2,
+        "column": 6,
+        "keyId": "R2C06"
+      }
+    },
+    {
+      "glyphId": "G17",
+      "phonemeIpa": "/w/",
+      "worldId": "W2",
+      "protoglyphColumn": 7,
+      "key": {
+        "row": 2,
+        "column": 7,
+        "keyId": "R2C07"
+      }
+    },
+    {
+      "glyphId": "G18",
+      "phonemeIpa": "/b/",
+      "worldId": "W2",
+      "protoglyphColumn": 8,
+      "key": {
+        "row": 2,
+        "column": 8,
+        "keyId": "R2C08"
+      }
+    },
+    {
+      "glyphId": "G19",
+      "phonemeIpa": "/d/",
+      "worldId": "W2",
+      "protoglyphColumn": 9,
+      "key": {
+        "row": 2,
+        "column": 9,
+        "keyId": "R2C09"
+      }
+    },
+    {
+      "glyphId": "G20",
+      "phonemeIpa": "/g/",
+      "worldId": "W2",
+      "protoglyphColumn": 10,
+      "key": {
+        "row": 2,
+        "column": 10,
+        "keyId": "R2C10"
+      }
+    },
+    {
+      "glyphId": "G21",
+      "phonemeIpa": "/p/",
+      "worldId": "W3",
+      "protoglyphColumn": 1,
+      "key": {
+        "row": 3,
+        "column": 1,
+        "keyId": "R3C01"
+      }
+    },
+    {
+      "glyphId": "G22",
+      "phonemeIpa": "/t/",
+      "worldId": "W3",
+      "protoglyphColumn": 2,
+      "key": {
+        "row": 3,
+        "column": 2,
+        "keyId": "R3C02"
+      }
+    },
+    {
+      "glyphId": "G23",
+      "phonemeIpa": "/k/",
+      "worldId": "W3",
+      "protoglyphColumn": 3,
+      "key": {
+        "row": 3,
+        "column": 3,
+        "keyId": "R3C03"
+      }
+    },
+    {
+      "glyphId": "G24",
+      "phonemeIpa": "/q/",
+      "worldId": "W3",
+      "protoglyphColumn": 4,
+      "key": {
+        "row": 3,
+        "column": 4,
+        "keyId": "R3C04"
+      }
+    },
+    {
+      "glyphId": "G25",
+      "phonemeIpa": "/f/",
+      "worldId": "W3",
+      "protoglyphColumn": 5,
+      "key": {
+        "row": 3,
+        "column": 5,
+        "keyId": "R3C05"
+      }
+    },
+    {
+      "glyphId": "G26",
+      "phonemeIpa": "/s/",
+      "worldId": "W3",
+      "protoglyphColumn": 6,
+      "key": {
+        "row": 3,
+        "column": 6,
+        "keyId": "R3C06"
+      }
+    },
+    {
+      "glyphId": "G27",
+      "phonemeIpa": "/ʃ/",
+      "worldId": "W3",
+      "protoglyphColumn": 7,
+      "key": {
+        "row": 3,
+        "column": 7,
+        "keyId": "R3C07"
+      }
+    },
+    {
+      "glyphId": "G28",
+      "phonemeIpa": "/x/",
+      "worldId": "W3",
+      "protoglyphColumn": 8,
+      "key": {
+        "row": 3,
+        "column": 8,
+        "keyId": "R3C08"
+      }
+    },
+    {
+      "glyphId": "G29",
+      "phonemeIpa": "/θ/",
+      "worldId": "W3",
+      "protoglyphColumn": 9,
+      "key": {
+        "row": 3,
+        "column": 9,
+        "keyId": "R3C09"
+      }
+    },
+    {
+      "glyphId": "G30",
+      "phonemeIpa": "/ts/",
+      "worldId": "W3",
+      "protoglyphColumn": 10,
+      "key": {
+        "row": 3,
+        "column": 10,
+        "keyId": "R3C10"
+      }
+    },
+    {
+      "glyphId": "G31",
+      "phonemeIpa": "/v/",
+      "worldId": "W4",
+      "protoglyphColumn": 1,
+      "key": {
+        "row": 4,
+        "column": 1,
+        "keyId": "R4C01"
+      }
+    },
+    {
+      "glyphId": "G32",
+      "phonemeIpa": "/z/",
+      "worldId": "W4",
+      "protoglyphColumn": 2,
+      "key": {
+        "row": 4,
+        "column": 2,
+        "keyId": "R4C02"
+      }
+    },
+    {
+      "glyphId": "G33",
+      "phonemeIpa": "/ʒ/",
+      "worldId": "W4",
+      "protoglyphColumn": 3,
+      "key": {
+        "row": 4,
+        "column": 3,
+        "keyId": "R4C03"
+      }
+    },
+    {
+      "glyphId": "G34",
+      "phonemeIpa": "/ð/",
+      "worldId": "W4",
+      "protoglyphColumn": 4,
+      "key": {
+        "row": 4,
+        "column": 4,
+        "keyId": "R4C04"
+      }
+    },
+    {
+      "glyphId": "G35",
+      "phonemeIpa": "/tʃ/",
+      "worldId": "W4",
+      "protoglyphColumn": 5,
+      "key": {
+        "row": 4,
+        "column": 5,
+        "keyId": "R4C05"
+      }
+    },
+    {
+      "glyphId": "G36",
+      "phonemeIpa": "/dʒ/",
+      "worldId": "W4",
+      "protoglyphColumn": 6,
+      "key": {
+        "row": 4,
+        "column": 6,
+        "keyId": "R4C06"
+      }
+    },
+    {
+      "glyphId": "G37",
+      "phonemeIpa": "/sˤ/",
+      "worldId": "W4",
+      "protoglyphColumn": 7,
+      "key": {
+        "row": 4,
+        "column": 7,
+        "keyId": "R4C07"
+      }
+    },
+    {
+      "glyphId": "G38",
+      "phonemeIpa": "/tˤ/",
+      "worldId": "W4",
+      "protoglyphColumn": 8,
+      "key": {
+        "row": 4,
+        "column": 8,
+        "keyId": "R4C08"
+      }
+    },
+    {
+      "glyphId": "G39",
+      "phonemeIpa": "/ɣ/",
+      "worldId": "W4",
+      "protoglyphColumn": 9,
+      "key": {
+        "row": 4,
+        "column": 9,
+        "keyId": "R4C09"
+      }
+    },
+    {
+      "glyphId": "G40",
+      "phonemeIpa": "/y/",
+      "worldId": "W4",
+      "protoglyphColumn": 10,
+      "key": {
+        "row": 4,
+        "column": 10,
+        "keyId": "R4C10"
+      }
+    }
+  ]
+}
