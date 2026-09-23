@@ -1,6 +1,18 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  createVaultArtifact,
+  isVaultConfigured,
+  listVaultArtifacts,
+  readStoredSession,
+  signInPassword,
+  signUpPassword,
+  storeSession,
+  updateVaultArtifact,
+  type VaultArtifact,
+  type VaultSession
+} from "../lib/supabase-vault";
 
 type ArtifactType = "SIGIL" | "SHIMOKODAN_AI" | "SHIMOKODAN_ASTRAL" | "SHIMOKODAN_HYBRID";
 
@@ -25,6 +37,14 @@ export default function HomePage() {
   const [loading,setLoading]=useState(false);
   const [error,setError]=useState("");
 
+  const [vaultSession,setVaultSession]=useState<VaultSession|null>(null);
+  const [vaultArtifacts,setVaultArtifacts]=useState<VaultArtifact[]>([]);
+  const [savedArtifact,setSavedArtifact]=useState<VaultArtifact|null>(null);
+  const [vaultEmail,setVaultEmail]=useState("");
+  const [vaultPassword,setVaultPassword]=useState("");
+  const [vaultMessage,setVaultMessage]=useState("");
+  const vaultConfigured=isVaultConfigured();
+
   const manifest=result?.manifest;
   const conflicts=manifest?.correspondences?.hebrewReference?.conflicts ?? [];
   const sourceCount=manifest?.correspondences?.hnkCanonDependencies?.length ?? 0;
@@ -33,11 +53,63 @@ export default function HomePage() {
 
   const modeLabel=useMemo(()=>MODES.find(x=>x.id===artifactType)?.label ?? artifactType,[artifactType]);
 
+  useEffect(()=>{
+    const session=readStoredSession();
+    if(session){
+      setVaultSession(session);
+      void refreshVault(session);
+    }
+  },[]);
+
   async function postJson(url:string,body:Record<string,unknown>) {
     const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
     const payload=await response.json();
     if(!response.ok) throw new Error(payload.error || "SIGILKODE_REQUEST_FAILED");
     return payload;
+  }
+
+  async function refreshVault(session=vaultSession) {
+    if(!session) return;
+    try {
+      const rows=await listVaultArtifacts(session);
+      setVaultArtifacts(rows);
+      setVaultMessage(`VAULT SINCRONIZADO · ${rows.length} ARTEFATO(S)`);
+    } catch(e) {
+      setVaultMessage(e instanceof Error ? e.message : "Falha ao sincronizar Vault");
+    }
+  }
+
+  async function auth(action:"SIGN_IN"|"SIGN_UP") {
+    setLoading(true); setError(""); setVaultMessage("");
+    try {
+      if(action==="SIGN_IN"){
+        const session=await signInPassword(vaultEmail.trim(),vaultPassword);
+        setVaultSession(session);
+        setVaultPassword("");
+        await refreshVault(session);
+      } else {
+        const response=await signUpPassword(vaultEmail.trim(),vaultPassword);
+        if(response.session){
+          setVaultSession(response.session);
+          setVaultPassword("");
+          await refreshVault(response.session);
+        } else {
+          setVaultMessage("CADASTRO CRIADO · CONFIRME O EMAIL ANTES DE ENTRAR");
+        }
+      }
+    } catch(e) {
+      setVaultMessage(e instanceof Error ? e.message : "Falha de autenticação");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function signOutVault(){
+    storeSession(null);
+    setVaultSession(null);
+    setVaultArtifacts([]);
+    setSavedArtifact(null);
+    setVaultMessage("SESSÃO LOCAL DO VAULT ENCERRADA");
   }
 
   async function compile() {
@@ -48,6 +120,7 @@ export default function HomePage() {
       setReview(null);
       setRuntimeState(null);
       setSystemPrompt("");
+      setSavedArtifact(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Falha na compilação");
     } finally {
@@ -112,6 +185,51 @@ export default function HomePage() {
     }
   }
 
+  async function saveVault(){
+    if(!vaultSession || !manifest) return;
+    setLoading(true); setError(""); setVaultMessage("");
+    try {
+      const lifecycle=(runtimeLifecycle==="ACTIVE"?"ACTIVE":runtimeLifecycle==="PURGED"?"RETIRED":manifest.lifecycle ?? "COMPILED") as VaultArtifact["lifecycle"];
+      const input={
+        authorityState:manifest.authorityState as VaultArtifact["authority_state"],
+        lifecycle,
+        manifest:manifest as Record<string,unknown>,
+        render:(result?.render ?? null) as Record<string,unknown>|null
+      };
+      let row:VaultArtifact;
+      if(savedArtifact && savedArtifact.stable_id===manifest.stableId){
+        row=await updateVaultArtifact(vaultSession,savedArtifact,input);
+      }else{
+        row=await createVaultArtifact(vaultSession,{
+          stableId:manifest.stableId,
+          artifactType,
+          ...input
+        });
+      }
+      setSavedArtifact(row);
+      setVaultMessage(`SALVO NO VAULT · REVISION ${row.revision}`);
+      await refreshVault(vaultSession);
+    }catch(e){
+      setVaultMessage(e instanceof Error ? e.message : "Falha ao salvar no Vault");
+    }finally{
+      setLoading(false);
+    }
+  }
+
+  function loadVault(row:VaultArtifact){
+    const m:any=row.manifest;
+    setArtifactType(row.artifact_type);
+    setIntentLiteral(String(m.intentLiteral ?? ""));
+    setFunctionType(String(m.functionType ?? "ORGANIZAR"));
+    setMatrices(Array.isArray(m.selectedMatrices)?m.selectedMatrices:[]);
+    setResult({manifest:row.manifest,render:row.render});
+    setReview(null);
+    setRuntimeState(null);
+    setSystemPrompt("");
+    setSavedArtifact(row);
+    setVaultMessage(`CARREGADO · ${row.stable_id} · REVISION ${row.revision}`);
+  }
+
   function toggleMatrix(id:string){
     setMatrices(prev=>prev.includes(id)?prev.filter(x=>x!==id):[...prev,id]);
   }
@@ -127,6 +245,7 @@ export default function HomePage() {
           <span>AUTHORITY <b>{manifest?.authorityState ?? "CREATOR"}</b></span>
           <span>ALIGNMENT <b>JESUS CHRIST</b></span>
           <span>RUNTIME <b>{runtimeLifecycle}</b></span>
+          <span>VAULT <b>{vaultSession?"BOUND":vaultConfigured?"READY":"UNCONFIGURED"}</b></span>
         </div>
       </header>
 
@@ -135,6 +254,32 @@ export default function HomePage() {
         <h2>Compile intenção em uma estrutura HNK rastreável.</h2>
         <p>Fonte, conflito, autoridade, aprovação e runtime permanecem separados. O sistema preserva correspondências históricas sem promovê-las silenciosamente a cânone.</p>
       </section>
+
+      <section className="vaultBar">
+        <div className="vaultIdentity">
+          <span>// DURABLE VAULT</span>
+          <b>{vaultSession?.email ?? (vaultConfigured?"AUTENTICAÇÃO NECESSÁRIA":"ENV NÃO CONFIGURADO")}</b>
+          <small>{vaultMessage || "RLS owner-scoped · optimistic revision · cross-device workspace"}</small>
+        </div>
+        {!vaultSession ? <div className="vaultAuth">
+          <input type="email" placeholder="email" value={vaultEmail} onChange={e=>setVaultEmail(e.target.value)} disabled={!vaultConfigured}/>
+          <input type="password" placeholder="senha" value={vaultPassword} onChange={e=>setVaultPassword(e.target.value)} disabled={!vaultConfigured}/>
+          <button onClick={()=>auth("SIGN_IN")} disabled={loading || !vaultConfigured || !vaultEmail || !vaultPassword}>ENTRAR</button>
+          <button onClick={()=>auth("SIGN_UP")} disabled={loading || !vaultConfigured || !vaultEmail || !vaultPassword}>CRIAR CONTA</button>
+        </div> : <div className="vaultActions">
+          <button onClick={saveVault} disabled={loading || !manifest}>SALVAR / ATUALIZAR</button>
+          <button onClick={()=>refreshVault()} disabled={loading}>SINCRONIZAR</button>
+          <button onClick={signOutVault}>SAIR</button>
+        </div>}
+      </section>
+
+      {vaultSession && vaultArtifacts.length>0 && <section className="vaultLibrary">
+        {vaultArtifacts.slice(0,8).map(row=><button key={row.id} className={savedArtifact?.id===row.id?"vaultCard active":"vaultCard"} onClick={()=>loadVault(row)}>
+          <span>{row.artifact_type.replaceAll("_"," · ")}</span>
+          <b>{row.stable_id}</b>
+          <small>{row.authority_state} · {row.lifecycle} · r{row.revision}</small>
+        </button>)}
+      </section>}
 
       <section className="workspace">
         <article className="panel inputPanel">
@@ -188,6 +333,8 @@ export default function HomePage() {
             <div><span>STABLE_ID</span><b>{manifest?.stableId ?? "—"}</b></div>
             <div><span>HNK40</span><b>{glyphs || "—"}</b></div>
             <div><span>RENDER SHA</span><b>{result?.render?.sha256 ? result.render.sha256.slice(0,18)+"…" : "—"}</b></div>
+            <div><span>VAULT REVISION</span><b>{savedArtifact?.revision ?? "—"}</b></div>
+            <div><span>VAULT UPDATED</span><b>{savedArtifact?.updated_at ? new Date(savedArtifact.updated_at).toLocaleString("pt-BR") : "—"}</b></div>
           </div>
           {review && <div className="receipt"><span>HUMAN GATE</span><b>{review.reviewId}</b><small>{review.review?.explicitHumanSignal}</small></div>}
           {runtimeState && <div className="receipt runtimeReceipt"><span>SHIMOKODAN RUNTIME</span><b>{runtimeState.state}</b><small>{runtimeState.stableId} · history {runtimeState.history?.length ?? 0}</small></div>}
@@ -234,7 +381,7 @@ export default function HomePage() {
         <span>PURGA ≠ HISTORY DELETION</span>
       </section>
 
-      <footer>SK-008 WEB WORKSPACE · SOURCE-LOCKED HNK CONTEXT · CREATOR AUTHORITY · GOVERNED RUNTIME</footer>
+      <footer>SK-009 DURABLE WORKSPACE · SOURCE-LOCKED HNK CONTEXT · CREATOR AUTHORITY · GOVERNED RUNTIME</footer>
     </main>
   );
 }
