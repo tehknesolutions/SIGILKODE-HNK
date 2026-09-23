@@ -1,39 +1,49 @@
 # SIGILKODE Validation Status V0.1
 
-Current state: `CI_BLOCKED_PRESTEP_RUNNER_PROVISIONING`
+Current state: `BACKEND_LIVE_VALIDATED__WEB_BUILD_PENDING`
 
-The repository contains:
-- executable deterministic compiler bootstrap;
-- golden-vector tests;
-- runtime terminology guard;
-- TypeScript contract definitions;
-- source revision lock;
-- GitHub Actions validation workflow.
+## Backend evidence
 
-## Observed GitHub Actions evidence
+The SK-009 durable schema is live in the authorized HNK Supabase backend.
 
-Two observed runs completed as `failure`, but their jobs contained:
+Observed validation:
+- 4 SigilKode tables;
+- 11 SigilKode RLS policies;
+- owner A read = 1;
+- owner B visible rows = 0;
+- owner B updated rows = 0;
+- optimistic update revision = 2;
+- stale revision rejected = true;
+- temporary validation users/data removed;
+- SigilKode foreign-key index advisor findings remediated.
+
+Security Advisor has no SigilKode-specific warning after the migration. Remaining warnings are pre-existing HNK/Codex findings and are not attributed to SIGILKODE.
+
+## GitHub Actions evidence
+
+GitHub-hosted Actions remains blocked before execution:
 
 ```text
 steps=[]
 runner_id=0
 runner_name=""
-```
-
-Therefore the correct classification is:
-
-```text
 NOT_EXECUTED_PRESTEP_INFRA_FAILURE
 ```
 
-This is not a code-test failure and is not a PASS. No checkout, install, test or typecheck step executed in those runs.
+This is neither a PASS nor a code-test failure.
+
+## Independent Windows build evidence
+
+A fresh build workspace was moved to drive `W:` because the machine's `C:` drive had 0 GB free. Dependency installation then progressed, but the independent check is not yet accepted as PASS. An interrupted/partial workspace install produced missing workspace links, so no green test/build claim is made.
 
 ## Required next evidence
 
-- independent local/container execution of runtime tests;
-- TypeScript typecheck;
-- browser smoke for the standalone V0.1 prototype;
-- a future GitHub Actions run with real runner allocation and visible steps.
+- clean independent pnpm install/check;
+- Next.js production build;
+- browser smoke;
+- Web → Supabase durable persistence;
+- production/preview deployment;
+- SK-010 RC1 attestation.
 
 Release invariant:
 
