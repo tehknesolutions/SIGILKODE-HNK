@@ -1,6 +1,6 @@
 # SIGILKODE ROADMAP V0.1
 
-Status: `BOOTSTRAP`
+Status: `RC1_PREVIEW_READY__PRODUCTION_PENDING`
 
 ## Sprint A — Foundation
 
@@ -21,8 +21,8 @@ Status: `BOOTSTRAP`
 
 ## Sprint D — Persistence + Release
 
-- **SK-009 Durable Vault** — LIVE SCHEMA + RLS + optimistic locking validated; SigilKode FK indexes hardened; Web persistence wiring pending.
-- **SK-010 RC1** — contract tests, deterministic vectors, accessibility, mobile/desktop QA, security hardening, release manifest and attestation.
+- **SK-009 Durable Vault** — LIVE schema/RLS/optimistic locking validated; FK indexes hardened; browser Vault client and Vercel public env are wired; deployed authenticated save/load smoke pending.
+- **SK-010 RC1** — 27/27 tests PASS, eight-target typecheck PASS, local production build/API smoke PASS and Vercel Preview READY; production promotion, deployed Vault smoke, visual/device QA and final attestation pending.
 
 ## Release invariant
 
