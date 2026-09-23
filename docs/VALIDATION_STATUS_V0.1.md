@@ -1,27 +1,26 @@
 # SIGILKODE Validation Status V0.1
 
-Current state: `BACKEND_LIVE_VALIDATED__WEB_BUILD_PENDING`
+Current state: `RC1_PREVIEW_READY__PRODUCTION_PENDING`
 
-## Backend evidence
+## Green evidence
 
-The SK-009 durable schema is live in the authorized HNK Supabase backend.
+- domain/runtime tests: **27/27 PASS**;
+- eight configured TypeScript targets: **PASS**;
+- independent Next.js 16.3.3 production build: **PASS**;
+- local production HTTP + compile/review/activate/Purga smoke: **PASS**;
+- Durable Vault schema live in authorized Supabase;
+- two-user RLS isolation: **PASS**;
+- optimistic revision/stale-write rejection: **PASS**;
+- SigilKode FK index hardening applied;
+- Vercel preview deployment `dpl_H7qmstzfvL71mPSQuuqFC3Bpnqtf`: **READY**;
+- Vercel cloud Next.js build + TypeScript + route generation: **PASS**;
+- Preview/Production/Development public Supabase client configuration: **WIRED**.
 
-Observed validation:
-- 4 SigilKode tables;
-- 11 SigilKode RLS policies;
-- owner A read = 1;
-- owner B visible rows = 0;
-- owner B updated rows = 0;
-- optimistic update revision = 2;
-- stale revision rejected = true;
-- temporary validation users/data removed;
-- SigilKode foreign-key index advisor findings remediated.
+Detailed evidence: `docs/SK010_RC1_EVIDENCE_V0.1.md`.
 
-Security Advisor has no SigilKode-specific warning after the migration. Remaining warnings are pre-existing HNK/Codex findings and are not attributed to SIGILKODE.
+## GitHub Actions
 
-## GitHub Actions evidence
-
-GitHub-hosted Actions remains blocked before execution:
+GitHub-hosted Actions still fails before the first workflow step:
 
 ```text
 steps=[]
@@ -30,21 +29,20 @@ runner_name=""
 NOT_EXECUTED_PRESTEP_INFRA_FAILURE
 ```
 
-This is neither a PASS nor a code-test failure.
+This is not a PASS and is not classified as an application code failure.
 
-## Independent Windows build evidence
+## Preview protection
 
-A fresh build workspace was moved to drive `W:` because the machine's `C:` drive had 0 GB free. Dependency installation then progressed, but the independent check is not yet accepted as PASS. An interrupted/partial workspace install produced missing workspace links, so no green test/build claim is made.
+The READY Vercel preview is protected by Vercel Authentication. Unauthenticated API calls can therefore return a protected-deployment response. The API chain itself was independently smoke-tested against the local production server.
 
-## Required next evidence
+## Still required before production-ready claim
 
-- clean independent pnpm install/check;
-- Next.js production build;
-- browser smoke;
-- Web → Supabase durable persistence;
-- production/preview deployment;
-- SK-010 RC1 attestation.
+- authenticated browser Vault save/load smoke on a deployed surface;
+- desktop/mobile visual QA;
+- production deployment/promotion;
+- production smoke;
+- final RC1 release attestation.
 
 Release invariant:
 
-`IMPLEMENTED != INSTRUMENTED != EXECUTED != APPROVED != CANON`
+`IMPLEMENTED != TESTED != PREVIEW_READY != PRODUCTION_READY != CANON`
