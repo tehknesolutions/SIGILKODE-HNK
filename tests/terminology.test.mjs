@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const ALLOWED_HISTORY = new Set([
   "README.md",
@@ -23,7 +24,7 @@ async function walk(dir, out = []) {
 }
 
 test("SK-001 legacy entity term does not leak into executable/runtime source", async () => {
-  const rootPath = new URL("..", import.meta.url).pathname;
+  const rootPath = fileURLToPath(new URL("../", import.meta.url));
   const files = await walk(rootPath);
   const offenders = [];
   for (const path of files) {
