@@ -1,6 +1,6 @@
 # SK-009 — Durable Vault V0.1
 
-State: `LIVE_SCHEMA_RLS_VALIDATED__WEB_PERSISTENCE_PENDING`
+State: `LIVE_SCHEMA_RLS_VALIDATED__WEB_CLIENT_WIRED`
 
 ## Implemented and live-validated
 
@@ -34,8 +34,8 @@ Performance Advisor no longer reports unindexed foreign keys for SigilKode. Newl
 
 ## Still pending
 
-- Web authentication and Supabase client wiring;
-- cross-device persistence through the real Web UI;
+- authenticated browser save/load smoke on the deployed Web surface;
+- cross-device persistence validation using two real browser sessions/devices;
 - browser/device QA;
 - production deployment;
 - RC1 release attestation.
