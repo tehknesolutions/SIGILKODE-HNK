@@ -21,7 +21,7 @@ Status: `BOOTSTRAP`
 
 ## Sprint D — Persistence + Release
 
-- **SK-009 Durable Vault** — SOURCE IMPLEMENTED; live Supabase deployment/RLS validation pending.
+- **SK-009 Durable Vault** — LIVE SCHEMA + RLS + optimistic locking validated; Web persistence wiring pending.
 - **SK-010 RC1** — contract tests, deterministic vectors, accessibility, mobile/desktop QA, security hardening, release manifest and attestation.
 
 ## Release invariant
