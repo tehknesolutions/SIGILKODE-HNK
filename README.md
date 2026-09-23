@@ -19,9 +19,9 @@ A nomenclatura `DAEMON` apareceu apenas na primeira prova de conceito e **não p
 
 ## Estado atual
 
-`V0.1 — DISCOVERY_CONVERGED__REPOSITORY_BOOTSTRAP`
+`V0.1 — RC1_PREVIEW_READY__PRODUCTION_PENDING`
 
-A V0.1 é um protótipo standalone e uma especificação de convergência. Ainda não representa integração final com os runtimes compartilhados do HNK, nem release estável.
+A V0.1 já possui compilador determinístico, adapters HNK source-locked, renderer SVG-first, Creator Authority/Human Gate, runtime Shimokodan, Durable Vault live e Web Next.js em preview READY. Ainda não é uma release estável de produção.
 
 ## Fluxo
 
@@ -72,13 +72,17 @@ COMPILED ≠ HUMAN_APPROVED
 ACTIVATED ≠ EVIDENCE_OF_SUPERNATURAL_EFFECT
 ```
 
-## Próximo marco
+## Estado RC1
 
-`SK-004 → SK-005`
+- 27/27 testes de domínio/runtime: PASS;
+- oito targets TypeScript: PASS;
+- Next.js production build: PASS;
+- compile → Human Gate → activate → Purga: PASS;
+- Supabase RLS + optimistic locking: LIVE VALIDATED;
+- Vercel Preview: READY;
+- produção: PENDING.
 
-1. adapters reais para HNK40, idioma, cânone e correspondências;
-2. renderer SVG-first compartilhado;
-3. validação independente do workspace fora do GitHub-hosted runner.
+Detalhes: `docs/SK010_RC1_EVIDENCE_V0.1.md`.
 
 ---
 
