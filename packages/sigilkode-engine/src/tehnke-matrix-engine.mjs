@@ -1,4 +1,5 @@
 import { compileTehnkeIR } from "./tehnke-ir.mjs";
+import { applyMatrixAdapter } from "./tehnke-matrix-adapters.mjs";
 
 export const MATRIX_ENGINE_VERSION = "SIGILKODE-MATRIX-ENGINE/V0.1";
 
@@ -23,13 +24,17 @@ export function bridgeSigilV01ToTehnke(input = {}) {
 export function executeMatrixEngine(ir) {
   if (ir?.version !== "TEHNKE-IR/V0.2") throw new RangeError("TEHNKE-IR/V0.2 required");
 
-  const applications = ir.matrices.map((matrix, index) => Object.freeze({
+  const applications = ir.matrices.map((matrix, index) => applyMatrixAdapter(Object.freeze({
     order: index + 1,
     identity: normalize(matrix.identity),
     revision: matrix.revision,
     authority: matrix.authority,
     channels: Object.freeze([...matrix.channels]),
     state: "APPLIED"
+  }), {
+    sourcePayloadHash: ir.deterministic.payloadHash,
+    alef: ir.alef,
+    operation: ir.operation
   }));
 
   return Object.freeze({
