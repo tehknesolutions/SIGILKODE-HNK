@@ -1,0 +1,15 @@
+{
+  "intentLiteral": "TRANSMUTAR BLOQUEIO CRIATIVO E EXPANDIR FOCO",
+  "operationClass": "ILLUMINATION",
+  "functionType": "FOCO",
+  "matrices": [
+    {
+      "identity": "HNK40",
+      "revision": "V0.2",
+      "authority": "HNK"
+    }
+  ],
+  "channels": ["SIGIL"],
+  "sourceLockVersion": "RC1",
+  "expectedPayloadHash": "6b358cde668000fd826f03cd018750b3b028d8844d9c7a8e8f98c5dc24bad664"
+}
