@@ -1,0 +1,10 @@
+{
+  "version": "SIGILKODE-HNK40-GOLDEN/V0.1",
+  "sourcePayloadHash": "00010203040506ffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "expected": {
+    "adapter": "HNK40",
+    "authority": "STRUCTURAL_ONLY",
+    "semanticInference": false,
+    "glyphIds": ["G01", "G02", "G03", "G04", "G05", "G06", "G07"]
+  }
+}
