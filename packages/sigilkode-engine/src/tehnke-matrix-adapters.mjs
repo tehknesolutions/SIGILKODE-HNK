@@ -1,6 +1,8 @@
+import { applyHnk40Matrix } from "./hnk40-matrix-adapter.mjs";
+
 export const MATRIX_ADAPTER_REGISTRY_VERSION = "SIGILKODE-MATRIX-ADAPTERS/V0.1";
 
-const adapters = new Map();
+const adapters = new Map([["HNK40", applyHnk40Matrix]]);
 
 export function registerMatrixAdapter(identity, adapter) {
   const key = String(identity ?? "").trim().toUpperCase();
@@ -22,4 +24,5 @@ export function applyMatrixAdapter(application, context = {}) {
 
 export function clearMatrixAdapters() {
   adapters.clear();
+  adapters.set("HNK40", applyHnk40Matrix);
 }
