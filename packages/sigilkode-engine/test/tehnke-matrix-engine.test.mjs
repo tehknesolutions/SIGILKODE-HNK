@@ -15,14 +15,15 @@ test("V0.1 bridge compiles into TEHNKE-IR/V0.2 without mutating legacy input", (
   assert.equal(legacy.intent, "Expandir foco");
 });
 
-test("Matrix Engine preserves deterministic matrix order and source hash", () => {
+test("Matrix Engine preserves canonical TEHNKE matrix order and source hash", () => {
   const ir = bridgeSigilV01ToTehnke({
     intent: "Criar sigilo",
     matrices: ["HNK40", { identity: "HENUVOKODAN", revision: "CANON" }],
     channels: ["SIGIL", "GLYPH"]
   });
+  assert.deepEqual(ir.matrices.map(x => x.identity), ["HENUVOKODAN", "HNK40"]);
   const result = executeMatrixEngine(ir);
-  assert.deepEqual(result.applications.map(x => x.identity), ["HNK40", "HENUVOKODAN"]);
+  assert.deepEqual(result.applications.map(x => x.identity), ir.matrices.map(x => x.identity));
   assert.equal(result.sourcePayloadHash, ir.deterministic.payloadHash);
   assert.ok(result.manifestation.every(x => x.state === "READY"));
 });
