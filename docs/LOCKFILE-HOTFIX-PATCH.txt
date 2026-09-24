@@ -1,0 +1,16 @@
+Validated local hotfix commit: 11d1ee8a9b43b0eb417a6c94b50d9f0548aa1200
+Validated lockfile blob: 61fc17cd46ac0f36c9b0d38af8c16202560fb71a
+Baseline blob: 9c0f63629c115c53d6b32d0aa342f169329b8c7a
+
+Patch semantics:
+- remove leading YAML document marker `---`
+- append the missing pnpm 12 snapshot graph after client-only@0.0.1
+- preserve all package resolutions/integrities already present in the baseline
+
+Local validation performed against the generated blob:
+- pnpm install --frozen-lockfile: PASS
+- SK-011.2 focused: 7/7 PASS
+- pnpm check: PASS
+- pnpm build:web: PASS
+
+The exact patch is preserved in local commit 11d1ee8a. Do not synthesize package integrity values.
