@@ -1,0 +1,11 @@
+import assert from "node:assert/strict";
+import { compileTehnkeIR, verifyTehnkeReplay, TEHNKE_IR_VERSION } from "../src/tehnke-ir.mjs";
+const input={alef:{literal:"TRANSMUTAR BLOQUEIO CRIATIVO E EXPANDIR FOCO"},operation:{class:"ILLUMINATION",function:"FOCO"},matrices:[{identity:"HNK40",revision:"V0.2",authority:"HNK"}],channels:["SIGIL"],sourceLockVersion:"RC1"};
+const first=compileTehnkeIR(input); const second=compileTehnkeIR(input);
+assert.equal(first.version,TEHNKE_IR_VERSION);
+assert.equal(first.deterministic.payloadHash,second.deterministic.payloadHash);
+assert.equal(verifyTehnkeReplay(input,first.deterministic.payloadHash),true);
+assert.equal(verifyTehnkeReplay(input,"invalid"),false);
+assert.throws(()=>compileTehnkeIR({}),/ALEF literal is required/);
+assert.throws(()=>compileTehnkeIR({alef:{literal:"X"},operation:{class:"INVALID"}}),/Invalid operation class/);
+console.log(`TEHNKE IR V0.2 replay PASS ${first.deterministic.payloadHash}`);
