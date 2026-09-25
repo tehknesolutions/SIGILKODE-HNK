@@ -11,6 +11,9 @@ export interface MatrixApplicationInput {
   revision?: string;
   authority?: string;
   channels?: string[];
+  selectors?: Readonly<{
+    canonRecordIds: readonly string[];
+  }>;
 }
 
 export interface ManifestationChannelInput {
@@ -38,6 +41,9 @@ export interface TehnkeIRV02 {
     revision: string;
     authority: string;
     channels: string[];
+    selectors?: Readonly<{
+      canonRecordIds: readonly string[];
+    }>;
   }>;
   channels: Array<{ type: string; deterministic: boolean }>;
   provenance: Array<{ source: string; authority: string; locator: string }>;

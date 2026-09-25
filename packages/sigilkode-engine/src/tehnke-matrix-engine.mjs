@@ -30,6 +30,7 @@ export function executeMatrixEngine(ir) {
     revision: matrix.revision,
     authority: matrix.authority,
     channels: Object.freeze([...matrix.channels]),
+    ...(matrix.selectors ? { selectors: matrix.selectors } : {}),
     state: "APPLIED"
   }), {
     sourcePayloadHash: ir.deterministic.payloadHash,

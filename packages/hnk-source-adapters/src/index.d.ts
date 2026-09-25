@@ -23,6 +23,20 @@ export function validateHnkSourceSnapshots(): HnkSourceValidation;
 export function getHnkGlyph(glyphId: string): Record<string, unknown> | undefined;
 export function glyphIdFromByte(byte: number): string;
 export function getHnkLexeme(form: string): Record<string, unknown> | undefined;
+export interface HnkCanonicalRecord extends Record<string, unknown> {
+  canon_item_id: string;
+  provenance: Readonly<{
+    sourceLock: "HNK-SOURCE-LOCK/V0.1";
+    repository: string;
+    commit: string;
+    path: string;
+    blob_sha: string;
+    sourceStatus: string;
+    recordId: string;
+  }>;
+}
+
+export function resolveHnkCanonicalRecord(canonItemId: string): Readonly<HnkCanonicalRecord> | undefined;
 export function searchHnkCanon(query: string): Array<Record<string, unknown>>;
 export function getHebrewCorrespondences(letterId: string): Array<Record<string, unknown>>;
 export function materializeHnkContext(input: {
