@@ -22,6 +22,17 @@ function sha256(value) {
   return createHash("sha256").update(value, "utf8").digest("hex");
 }
 
+function normalizeCanonRecordIds(value) {
+  if (value == null) return Object.freeze([]);
+  if (!Array.isArray(value)) throw new TypeError("canonRecordIds must be an array");
+  return Object.freeze(value.map((id) => {
+    if (typeof id !== "string") throw new TypeError("canonRecordIds entries must be strings");
+    const normalized = normalize(id);
+    if (!normalized) throw new RangeError("canonRecordIds entries must not be empty");
+    return normalized;
+  }));
+}
+
 function canonicalMatrix(matrix) {
   if (typeof matrix === "string") {
     return Object.freeze({
@@ -35,11 +46,16 @@ function canonicalMatrix(matrix) {
   const identity = normalize(matrix?.identity);
   if (!identity) throw new RangeError("matrix.identity is required");
 
+  const selectors = matrix?.selectors == null ? undefined : Object.freeze({
+    canonRecordIds: normalizeCanonRecordIds(matrix.selectors?.canonRecordIds)
+  });
+
   return Object.freeze({
     identity,
     revision: String(matrix?.revision || "UNSPECIFIED"),
     authority: normalize(matrix?.authority || "REFERENCE"),
-    channels: Object.freeze([...(matrix?.channels || [])].map(normalize).filter(Boolean).sort())
+    channels: Object.freeze([...(matrix?.channels || [])].map(normalize).filter(Boolean).sort()),
+    ...(selectors ? { selectors } : {})
   });
 }
 
