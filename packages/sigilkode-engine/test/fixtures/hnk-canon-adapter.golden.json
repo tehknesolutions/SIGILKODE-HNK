@@ -1,0 +1,35 @@
+{
+  "version": "SIGILKODE-HNK-CANON-MATRIX-ADAPTER/V0.1",
+  "sourceLock": "HNK-SOURCE-LOCK/V0.1",
+  "authority": "HNK_CANONICAL",
+  "semanticInference": false,
+  "requestedRecordIds": [
+    "HNK-CANON-R001-054"
+  ],
+  "contributions": [
+    {
+      "contributionId": "393d86079d1269037a2503496ef9017a92d65a8eb3e0e2146c769f684874e072",
+      "matrixIdentity": "HNK_CANON",
+      "authority": "HNK_CANONICAL",
+      "canonItemId": "HNK-CANON-R001-054",
+      "sourceItemId": "HNK-R001-054",
+      "kind": "SYMBOLIC_PRIMITIVE",
+      "name": "Symbolic Key",
+      "definition": "A symbol or key references a function, resource or operation without being identical to that function, resource or operation.",
+      "constraints": [
+        "Visual similarity alone grants neither authority nor capability."
+      ],
+      "provenance": {
+        "sourceLock": "HNK-SOURCE-LOCK/V0.1",
+        "repository": "tehknesolutions/codex-hnk",
+        "commit": "2eafcb1f8f017fd7014cebde64bde41b29b36d2d",
+        "path": "canon/core/research-001-symbolic-architecture-v1.json",
+        "blob_sha": "a2f14cfe884076a5c242da59c966342e8de2c150",
+        "sourceStatus": "HNK_CANON",
+        "recordId": "HNK-CANON-R001-054"
+      }
+    }
+  ],
+  "unresolvedRecordIds": [],
+  "replayHash": "f7bfe80f80f898d7202cb038ae07960fbe0b04fb65e7e166346cfc5aec2585e1"
+}
