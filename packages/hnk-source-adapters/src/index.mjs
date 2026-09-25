@@ -124,6 +124,31 @@ export function getHnkLexeme(form) {
   return LEXEME_BY_FORM.get(String(form ?? "").trim().toUpperCase());
 }
 
+export function resolveHnkCanonicalRecord(canonItemId) {
+  if (typeof canonItemId !== "string") throw new TypeError("canon item id must be a string");
+  const id = canonItemId.trim().toUpperCase();
+  if (!id) throw new RangeError("canon item id is required");
+
+  const validation = validateHnkSourceSnapshots();
+  if (!validation.ok) throw new Error(`HNK source snapshots invalid: ${validation.errors.join("; ")}`);
+
+  const item = CANON_BY_ID.get(id);
+  if (!item) return undefined;
+
+  return Object.freeze({
+    ...item,
+    provenance: Object.freeze({
+      sourceLock: HNK_SOURCE_LOCK_VERSION,
+      repository: CANON.source.repository,
+      commit: CANON.source.commit,
+      path: CANON.source.path,
+      blob_sha: CANON.source.blob_sha,
+      sourceStatus: CANON.source.status,
+      recordId: item.canon_item_id
+    })
+  });
+}
+
 export function searchHnkCanon(query) {
   const needle = String(query ?? "").trim().toLocaleLowerCase("pt-BR");
   if (!needle) return [...CANON.records];
