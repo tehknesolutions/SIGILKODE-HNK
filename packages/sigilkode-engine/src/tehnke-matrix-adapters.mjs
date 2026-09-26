@@ -1,13 +1,15 @@
 import { applyHnk40Matrix } from "./hnk40-matrix-adapter.mjs";
 import { applyHnkCanonMatrix } from "./hnk-canon-matrix-adapter.mjs";
 import { applyHenuvokodanMatrix } from "./henuvokodan-matrix-adapter.mjs";
+import { applyNumerologyRawMatrix } from "./numerology-raw-matrix-adapter.mjs";
 
 export const MATRIX_ADAPTER_REGISTRY_VERSION = "SIGILKODE-MATRIX-ADAPTERS/V0.1";
 
 const adapters = new Map([
   ["HNK40", applyHnk40Matrix],
   ["HNK_CANON", applyHnkCanonMatrix],
-  ["HENUVOKODAN", applyHenuvokodanMatrix]
+  ["HENUVOKODAN", applyHenuvokodanMatrix],
+  ["NUMEROLOGY_RAW", applyNumerologyRawMatrix]
 ]);
 
 export function registerMatrixAdapter(identity, adapter) {
@@ -33,4 +35,5 @@ export function clearMatrixAdapters() {
   adapters.set("HNK40", applyHnk40Matrix);
   adapters.set("HNK_CANON", applyHnkCanonMatrix);
   adapters.set("HENUVOKODAN", applyHenuvokodanMatrix);
+  adapters.set("NUMEROLOGY_RAW", applyNumerologyRawMatrix);
 }
