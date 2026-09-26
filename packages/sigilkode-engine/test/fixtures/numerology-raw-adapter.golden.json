@@ -1,0 +1,19 @@
+{
+  "version": "SIGILKODE-NUMEROLOGY-RAW-MATRIX-ADAPTER/V0.1",
+  "authority": "HNK_AUTHORED_CANDIDATE",
+  "status": "EVIDENCE_MATERIALIZED_CANDIDATE",
+  "semanticInference": false,
+  "rawByte": 28,
+  "nRaw": 29,
+  "digitSum": 11,
+  "digitalRoot": 2,
+  "binary": "11101",
+  "hexadecimal": "1D",
+  "parity": "ODD",
+  "isPrime": true,
+  "primeFactors": [
+    29
+  ],
+  "triangularIndex": null,
+  "replayHash": "6e10883d554333cfda9a0225dd97ba61be7e3548c1bbac0dfb008655495dacb9"
+}

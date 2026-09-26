@@ -59,7 +59,8 @@ function canonicalMatrix(matrix) {
 
   const selectors = matrix?.selectors == null ? undefined : Object.freeze({
     ...(matrix.selectors?.canonRecordIds != null ? { canonRecordIds: normalizeCanonRecordIds(matrix.selectors.canonRecordIds) } : {}),
-    ...(matrix.selectors?.lexemeForms != null ? { lexemeForms: normalizeLexemeForms(matrix.selectors.lexemeForms) } : {})
+    ...(matrix.selectors?.lexemeForms != null ? { lexemeForms: normalizeLexemeForms(matrix.selectors.lexemeForms) } : {}),
+    ...(matrix.selectors?.rawByte != null ? { rawByte: matrix.selectors.rawByte } : {})
   });
 
   return Object.freeze({
