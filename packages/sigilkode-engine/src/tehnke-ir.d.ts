@@ -12,7 +12,9 @@ export interface MatrixApplicationInput {
   authority?: string;
   channels?: string[];
   selectors?: Readonly<{
-    canonRecordIds: readonly string[];
+    canonRecordIds?: readonly string[];
+    lexemeForms?: readonly string[];
+    rawByte?: number;
   }>;
 }
 
@@ -42,7 +44,9 @@ export interface TehnkeIRV02 {
     authority: string;
     channels: string[];
     selectors?: Readonly<{
-      canonRecordIds: readonly string[];
+      canonRecordIds?: readonly string[];
+    lexemeForms?: readonly string[];
+    rawByte?: number;
     }>;
   }>;
   channels: Array<{ type: string; deterministic: boolean }>;
