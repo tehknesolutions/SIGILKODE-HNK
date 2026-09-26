@@ -124,6 +124,21 @@ export function getHnkLexeme(form) {
   return LEXEME_BY_FORM.get(String(form ?? "").trim().toUpperCase());
 }
 
+export function resolveHnkLexeme(form) {
+  if (typeof form !== "string") throw new TypeError("HNK lexeme form must be a string");
+  const transliteration = form.trim().toUpperCase();
+  if (!transliteration) throw new RangeError("HNK lexeme form is required");
+  const validation = validateHnkSourceSnapshots();
+  if (!validation.ok) throw new Error(`HNK language source snapshots invalid: ${validation.errors.join("; ")}`);
+  const lexeme = LEXEME_BY_FORM.get(transliteration);
+  if (!lexeme) return undefined;
+  return Object.freeze({ ...lexeme, provenance: Object.freeze({
+    sourceLock: HNK_SOURCE_LOCK_VERSION, repository: LANGUAGE.source.repository,
+    commit: LANGUAGE.source.commit, path: LANGUAGE.source.path,
+    blob_sha: LANGUAGE.source.blob_sha, authority: lexeme.authority, recordId: lexeme.id
+  }) });
+}
+
 export function resolveHnkCanonicalRecord(canonItemId) {
   if (typeof canonItemId !== "string") throw new TypeError("canon item id must be a string");
   const id = canonItemId.trim().toUpperCase();
