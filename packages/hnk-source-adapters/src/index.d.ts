@@ -24,6 +24,8 @@ export function getHnkGlyph(glyphId: string): Record<string, unknown> | undefine
 export function glyphIdFromByte(byte: number): string;
 export function getHnkLexeme(form: string): Record<string, unknown> | undefined;
 export function resolveHnkLexeme(form: string): Readonly<Record<string, unknown>> | undefined;
+export function getNumericAuthorityRegistry(): Readonly<Record<string, unknown>>;
+export function deriveRawNumerology(rawByte: number): Readonly<Record<string, unknown>>;
 export interface HnkCanonicalRecord extends Record<string, unknown> {
   canon_item_id: string;
   provenance: Readonly<{

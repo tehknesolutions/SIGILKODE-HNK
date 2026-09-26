@@ -9,6 +9,7 @@ const HNK40 = loadJson("../../../sources/materialized/hnk40.v0.1.json");
 const LANGUAGE = loadJson("../../../sources/materialized/hnk-language.v0.1.json");
 const CANON = loadJson("../../../sources/materialized/hnk-canon.v0.1.json");
 const CORR = loadJson("../../../sources/materialized/hnk-correspondences.v0.1.json");
+const NUMERIC = loadJson("../../../sources/materialized/hnk-numerology-raw.v0.1.json");
 
 export const HNK_SOURCE_LOCK_VERSION = "HNK-SOURCE-LOCK/V0.1";
 
@@ -222,6 +223,35 @@ export function validateHnkSourceSnapshots() {
   }
 
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) });
+}
+
+export function getNumericAuthorityRegistry() {
+  return Object.freeze({
+    raw: Object.freeze({ id: NUMERIC.raw.id, authority: NUMERIC.source.authority,
+      status: NUMERIC.status, semanticInference: NUMERIC.raw.semantic_inference,
+      derivations: Object.freeze([...NUMERIC.raw.derivations]) }),
+    profiles: Object.freeze(Object.fromEntries(Object.entries(NUMERIC.profiles)
+      .map(([id, profile]) => [id, Object.freeze({ ...profile })])))
+  });
+}
+
+function digitSum(n) { return String(n).split("").reduce((sum, d) => sum + Number(d), 0); }
+function digitalRoot(n) { return n === 0 ? 0 : 1 + ((n - 1) % 9); }
+function primeFactors(n) {
+  const out = []; let value = n;
+  for (let p = 2; p * p <= value; p += 1) while (value % p === 0) { out.push(p); value /= p; }
+  if (value > 1) out.push(value);
+  return out;
+}
+
+export function deriveRawNumerology(rawByte) {
+  if (!Number.isInteger(rawByte) || rawByte < 0 || rawByte > 255) throw new RangeError("rawByte must be 0..255");
+  const nRaw = rawByte + 1, factors = primeFactors(nRaw);
+  const triangular = (Math.sqrt(8 * nRaw + 1) - 1) / 2;
+  return Object.freeze({ rawByte, nRaw, digitSum: digitSum(nRaw), digitalRoot: digitalRoot(nRaw),
+    binary: nRaw.toString(2), hexadecimal: nRaw.toString(16).toUpperCase(), parity: nRaw % 2 ? "ODD" : "EVEN",
+    isPrime: nRaw > 1 && factors.length === 1 && factors[0] === nRaw, primeFactors: Object.freeze(factors),
+    triangularIndex: Number.isInteger(triangular) ? triangular : null });
 }
 
 export function materializeHnkContext({ hash, intentNormalized }) {

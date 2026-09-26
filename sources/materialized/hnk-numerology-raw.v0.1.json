@@ -1,0 +1,34 @@
+{
+  "snapshot_schema": "SIGILKODE-HNK-NUMERIC-AUTHORITY/V0.1",
+  "status": "EVIDENCE_MATERIALIZED_CANDIDATE",
+  "source": {
+    "artifact": "HNK_ORACULUM_CUBE_Manual_V1.0_RC1.pdf",
+    "section": "12.1 Numerologia RAW",
+    "authority": "HNK_AUTHORED_CANDIDATE",
+    "promotion": "HUMAN_PROMOTION_PENDING"
+  },
+  "raw": {
+    "id": "HNK-NUMERIC-RAW/V0.1",
+    "input_bits": "B043-B050",
+    "input_range": [0, 255],
+    "n_raw_rule": "RAW_BYTE + 1",
+    "n_raw_range": [1, 256],
+    "derivations": ["DIGIT_SUM", "DIGITAL_ROOT", "BINARY", "HEXADECIMAL", "PARITY", "PRIMALITY", "PRIME_FACTORS", "TRIANGULAR_INDEX"],
+    "semantic_inference": false
+  },  "profiles": {
+    "NUMERIA_ORDINAL_V1": {
+      "status": "BLOCKED_SOURCE_NOT_MATERIALIZED",
+      "authority": "NONE"
+    },
+    "SEAL_26": {
+      "status": "BLOCKED_SOURCE_NOT_MATERIALIZED",
+      "authority": "NONE"
+    }
+  },
+  "invariants": [
+    "RAW != INTERPRETATION",
+    "PROFILE_CHANGE_MUST_NOT_CHANGE_RAW",
+    "GENERATED != CANON",
+    "CANDIDATE != PROMOTED_CANON"
+  ]
+}
