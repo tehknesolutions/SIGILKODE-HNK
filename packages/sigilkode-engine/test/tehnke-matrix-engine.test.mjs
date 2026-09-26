@@ -18,7 +18,7 @@ test("V0.1 bridge compiles into TEHNKE-IR/V0.2 without mutating legacy input", (
 test("Matrix Engine preserves canonical TEHNKE matrix order and source hash", () => {
   const ir = bridgeSigilV01ToTehnke({
     intent: "Criar sigilo",
-    matrices: ["HNK40", { identity: "HENUVOKODAN", revision: "CANON" }],
+    matrices: ["HNK40", { identity: "HENUVOKODAN", revision: "CANON", authority: "SOURCE_LOCKED" }],
     channels: ["SIGIL", "GLYPH"]
   });
   assert.deepEqual(ir.matrices.map(x => x.identity), ["HENUVOKODAN", "HNK40"]);

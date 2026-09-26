@@ -33,6 +33,17 @@ function normalizeCanonRecordIds(value) {
   }));
 }
 
+function normalizeLexemeForms(value) {
+  if (value == null) return Object.freeze([]);
+  if (!Array.isArray(value)) throw new TypeError("lexemeForms must be an array");
+  return Object.freeze(value.map((form) => {
+    if (typeof form !== "string") throw new TypeError("lexemeForms entries must be strings");
+    const normalized = normalize(form);
+    if (!normalized) throw new RangeError("lexemeForms entries must not be empty");
+    return normalized;
+  }));
+}
+
 function canonicalMatrix(matrix) {
   if (typeof matrix === "string") {
     return Object.freeze({
@@ -47,7 +58,8 @@ function canonicalMatrix(matrix) {
   if (!identity) throw new RangeError("matrix.identity is required");
 
   const selectors = matrix?.selectors == null ? undefined : Object.freeze({
-    canonRecordIds: normalizeCanonRecordIds(matrix.selectors?.canonRecordIds)
+    ...(matrix.selectors?.canonRecordIds != null ? { canonRecordIds: normalizeCanonRecordIds(matrix.selectors.canonRecordIds) } : {}),
+    ...(matrix.selectors?.lexemeForms != null ? { lexemeForms: normalizeLexemeForms(matrix.selectors.lexemeForms) } : {})
   });
 
   return Object.freeze({

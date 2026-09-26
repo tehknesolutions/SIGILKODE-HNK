@@ -1,0 +1,81 @@
+{
+  "version": "SIGILKODE-HENUVOKODAN-MATRIX-ADAPTER/V0.1",
+  "sourceLock": "HNK-SOURCE-LOCK/V0.1",
+  "authority": "SOURCE_LOCKED",
+  "semanticInference": false,
+  "requestedLexemeForms": [
+    "PITSA",
+    "DAYI",
+    "BANKA"
+  ],
+  "contributions": [
+    {
+      "contributionId": "cd09885020a0f431c05bb8b111a7138e39d539d1e80e62e99173b5b2e481bd59",
+      "matrixIdentity": "HENUVOKODAN",
+      "transliteration": "PITSA",
+      "meaning": {
+        "pt": "pizza",
+        "en": "pizza"
+      },
+      "lexemeAuthority": "FROZEN",
+      "certainty": "RECOVERED",
+      "lessons": [
+        "L02"
+      ],
+      "provenance": {
+        "sourceLock": "HNK-SOURCE-LOCK/V0.1",
+        "repository": "tehknesolutions/codex-hnk",
+        "commit": "2eafcb1f8f017fd7014cebde64bde41b29b36d2d",
+        "path": "packages/hnk-linguas/src/index.mjs",
+        "blob_sha": "3612a027c6da748b81f4fb407574824f1259d64e",
+        "authority": "FROZEN",
+        "recordId": "LEX-032"
+      }
+    },
+    {
+      "contributionId": "2987813d40255831c1858603a9133ea01cd7fecf63a772782929c35c145f93f7",
+      "matrixIdentity": "HENUVOKODAN",
+      "transliteration": "DAYI",
+      "meaning": {
+        "pt": "querer / intenção",
+        "en": "want / intention"
+      },
+      "lexemeAuthority": "CANDIDATE",
+      "certainty": "PARTIAL",
+      "lessons": [
+        "L03"
+      ],
+      "provenance": {
+        "sourceLock": "HNK-SOURCE-LOCK/V0.1",
+        "repository": "tehknesolutions/codex-hnk",
+        "commit": "2eafcb1f8f017fd7014cebde64bde41b29b36d2d",
+        "path": "packages/hnk-linguas/src/index.mjs",
+        "blob_sha": "3612a027c6da748b81f4fb407574824f1259d64e",
+        "authority": "CANDIDATE",
+        "recordId": "LEX-016"
+      }
+    },
+    {
+      "contributionId": "04e44702f52f7e47a6c14205242e2ecb7642477c76751691e32e93257293c0b5",
+      "matrixIdentity": "HENUVOKODAN",
+      "transliteration": "BANKA",
+      "meaning": null,
+      "lexemeAuthority": "GATE",
+      "certainty": "UNRECOVERED",
+      "lessons": [
+        "L04"
+      ],
+      "provenance": {
+        "sourceLock": "HNK-SOURCE-LOCK/V0.1",
+        "repository": "tehknesolutions/codex-hnk",
+        "commit": "2eafcb1f8f017fd7014cebde64bde41b29b36d2d",
+        "path": "packages/hnk-linguas/src/index.mjs",
+        "blob_sha": "3612a027c6da748b81f4fb407574824f1259d64e",
+        "authority": "GATE",
+        "recordId": "LEX-027"
+      }
+    }
+  ],
+  "unresolvedLexemeForms": [],
+  "replayHash": "b0f905f14fbf7c9f455f512ddd47e8237331d9fb3ce54245a78031f65bc39c9f"
+}

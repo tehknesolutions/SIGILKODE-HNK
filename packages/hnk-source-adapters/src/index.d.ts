@@ -23,6 +23,7 @@ export function validateHnkSourceSnapshots(): HnkSourceValidation;
 export function getHnkGlyph(glyphId: string): Record<string, unknown> | undefined;
 export function glyphIdFromByte(byte: number): string;
 export function getHnkLexeme(form: string): Record<string, unknown> | undefined;
+export function resolveHnkLexeme(form: string): Readonly<Record<string, unknown>> | undefined;
 export interface HnkCanonicalRecord extends Record<string, unknown> {
   canon_item_id: string;
   provenance: Readonly<{
