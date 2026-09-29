@@ -1,9 +1,9 @@
 # haKodan Project Snapshot Consumer Pin — 2026-09-29
 
 **Role:** SIGILKODE-HNK rendering/manifestation consumer  
-**HNK-KODE source snapshot:** `981736063e8beda43dd079cd63953ec02db6f59b`
+**HNK-KODE source snapshot:** `846664abfb47ebe0b72d5488df3d7876443c411b`
 
-Use `tehknesolutions/HNK-KODE@981736063e8beda43dd079cd63953ec02db6f59b` as the project state source for haKodan/VHK/Kodin semantics.
+Use `tehknesolutions/HNK-KODE@846664abfb47ebe0b72d5488df3d7876443c411b` as the project state source for haKodan/VHK/Kodin semantics.
 
 SIGILKODE-HNK may render/manifest canonical glyph-sigil records but must not infer or create HNK lexical semantics from geometry.
 
