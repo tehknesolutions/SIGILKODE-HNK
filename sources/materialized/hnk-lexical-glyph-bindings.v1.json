@@ -1,0 +1,58 @@
+{
+  "snapshot_schema": "SIGILKODE-HNK-LEXICAL-GLYPH-SNAPSHOT/V1",
+  "source": {
+    "repository": "tehknesolutions/HNK-KODE",
+    "commit": "341591138d5428295c9bf23944eb8a8bd863c305",
+    "path": "data/canon/hnk-lexical-glyph-registry.v1.json",
+    "authority": "HNK_CANON"
+  },
+  "policy": {
+    "semanticInference": false,
+    "renderingAuthority": "CONSUMER",
+    "linguisticAuthority": "HNK-KODE",
+    "structuralAuthority": "CODEX-HNK",
+    "codepointIsProjection": true
+  },
+  "bindings": [
+    {
+      "lexeme": "AHNUVA",
+      "glyphId": "HNK-LG-0001",
+      "sigilId": "HNK-LS-0001",
+      "mathId": "HMATH-N12-E533006473117A1B6F91",
+      "svgSha256": "c92635842fd44bb7d6699a350516d40f58abdcf61730cd188d2a39f2bad845d0",
+      "codePoint": "U+E100"
+    },
+    {
+      "lexeme": "EMANU",
+      "glyphId": "HNK-LG-0002",
+      "sigilId": "HNK-LS-0002",
+      "mathId": "HMATH-N12-45E7FA30BFB516CB279F",
+      "svgSha256": "6894a6b6f3c923b046194b2d685d78e14a24c50d83ee5f21acc72ecd96d66104",
+      "codePoint": "U+E101"
+    },
+    {
+      "lexeme": "HAYA",
+      "glyphId": "HNK-LG-0003",
+      "sigilId": "HNK-LS-0003",
+      "mathId": "HMATH-N12-2887530BADEAC3A6374E",
+      "svgSha256": "e510e8b71f7283837e589305347451c30bb3a7c4f3f51f4d235b2f3314bc517d",
+      "codePoint": "U+E102"
+    },
+    {
+      "lexeme": "HODERU",
+      "glyphId": "HNK-LG-0004",
+      "sigilId": "HNK-LS-0004",
+      "mathId": "HMATH-N12-0431D17150B7E78A525F",
+      "svgSha256": "850f6bcfaddeec5471f967d07cb85fa27d0e76a069626071739cf5c5e9a48479",
+      "codePoint": "U+E103"
+    },
+    {
+      "lexeme": "KODAN",
+      "glyphId": "HNK-LG-0005",
+      "sigilId": "HNK-LS-0005",
+      "mathId": "HMATH-N12-83FAB36561ABF9BAB67A",
+      "svgSha256": "ca14cb58592a6946159ff0a73225f034b5390049c2defb0b6440ae091b459e03",
+      "codePoint": "U+E104"
+    }
+  ]
+}
